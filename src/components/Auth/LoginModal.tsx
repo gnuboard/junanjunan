@@ -12,8 +12,10 @@ import {
   ModalHeader,
   ModalOverlay,
   VStack,
+  Divider,
 } from "@chakra-ui/react";
 import { FaUserNinja, FaLock } from "react-icons/fa";
+import SocialLogin from "./SocialLogin";
 
 
 interface LoginModalProps {
@@ -52,12 +54,11 @@ export default function LoginModal ( {onClose, isOpen}: LoginModalProps ) {
               <Input variant={"filled"} placeholder="Password" />
             </InputGroup>
           </VStack>
-        </ModalBody>
-        <ModalFooter w="100%">
-          <Button colorScheme={"blue"} w="100%">
+          <Button mt={4} colorScheme={"blue"} w="100%">
             Log in
           </Button>
-        </ModalFooter>
+          <SocialLogin />
+        </ModalBody>
       </ModalContent>
     </Modal>
   );
