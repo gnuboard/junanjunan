@@ -6,6 +6,7 @@ import {
   InputLeftElement,
   Modal,
   ModalBody,
+  ModalFooter,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
@@ -51,10 +52,12 @@ export default function LoginModal ( {onClose, isOpen}: LoginModalProps ) {
               <Input variant={"filled"} placeholder="Password" />
             </InputGroup>
           </VStack>
-          <Button mt={4} colorScheme={"blue"} w="100%">
+        </ModalBody>
+        <ModalFooter w="100%">
+          <Button colorScheme={"blue"} w="100%">
             Log in
           </Button>
-        </ModalBody>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
