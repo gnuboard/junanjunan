@@ -12,7 +12,6 @@ import {
   ModalOverlay,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
 import { FaUserNinja, FaLock } from "react-icons/fa";
 
 
@@ -22,7 +21,7 @@ interface LoginModalProps {
 }
 
 
-const LoginModal: React.FC<LoginModalProps> = ({ onClose, isOpen }) => {
+export default function LoginModal ( {onClose, isOpen}: LoginModalProps ) {
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <ModalOverlay />
@@ -60,6 +59,3 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose, isOpen }) => {
     </Modal>
   );
 }
-
-
-export default LoginModal;
