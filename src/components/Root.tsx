@@ -1,8 +1,10 @@
-import { Box, Button, HStack, IconButton } from "@chakra-ui/react";
+import { Box, Button, HStack, IconButton, useDisclosure} from "@chakra-ui/react";
 import { Link, Outlet } from "react-router-dom";
 import { FaMoon } from "react-icons/fa";
+import LoginModal from "./Auth/LoginModal";
 
 export default function Root() {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <Box>
       <HStack
@@ -23,9 +25,11 @@ export default function Root() {
             aria-label="Toggle dark mode"
             icon={<FaMoon />}
           />
-          <Button>Log in</Button>
+          <Button onClick={onOpen}>Log in</Button>
           <Button colorScheme={"blue"}>Sign up</Button>
         </HStack>
+        {/* LoginModal: This component is modal that pops up when Log in button was clicked */}
+        <LoginModal onClose={onClose} isOpen={isOpen} />
       </HStack>
       <Outlet />
     </Box>
