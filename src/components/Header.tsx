@@ -1,5 +1,5 @@
-import { FaMoon } from "react-icons/fa";
-import { Box, Button, HStack, IconButton, useDisclosure } from "@chakra-ui/react";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { Box, Button, HStack, IconButton, useDisclosure, useColorMode } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import LoginModal from "./Auth/LoginModal";
 import SignUpModal from "./Auth/SignUpModal";
@@ -18,6 +18,8 @@ export default function Header() {
     onOpen: onSignUpOpen,
   } = useDisclosure();
 
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <HStack
       justifyContent={"space-between"}
@@ -35,9 +37,10 @@ export default function Header() {
       </Box>
       <HStack spacing={2}>
         <IconButton
+          onClick={toggleColorMode}
           variant={"ghost"}
           aria-label="Toggle dark mode"
-          icon={<FaMoon />}
+          icon={colorMode === "light" ? <FaSun /> : <FaMoon />}
         />
         <Button onClick={onLoginOpen}>Log in</Button>
         <Button onClick={onSignUpOpen} colorScheme={"blue"}>
