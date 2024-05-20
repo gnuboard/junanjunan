@@ -1,5 +1,6 @@
-import { Box, Button, HStack } from "@chakra-ui/react";
+import { Box, Button, HStack, IconButton } from "@chakra-ui/react";
 import { Link, Outlet } from "react-router-dom";
+import { FaMoon } from "react-icons/fa";
 
 export default function Root() {
   return (
@@ -17,6 +18,11 @@ export default function Root() {
           />
         </Link>
         <HStack spacing={2}>
+          <IconButton
+            variant={"ghost"}
+            aria-label="Toggle dark mode"
+            icon={<FaMoon />}
+          />
           <Button>Log in</Button>
           <Button colorScheme={"blue"}>Sign up</Button>
         </HStack>
