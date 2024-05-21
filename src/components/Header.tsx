@@ -1,7 +1,7 @@
 import { FaMoon, FaSun } from "react-icons/fa";
 import { 
   Box, Button, HStack, IconButton, useDisclosure,
-  useColorMode, useColorModeValue
+  useColorMode, useColorModeValue, Stack
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import LoginModal from "./Auth/LoginModal";
@@ -25,10 +25,19 @@ export default function Header() {
   const Icon = useColorModeValue(FaMoon, FaSun);
 
   return (
-    <HStack
+    <Stack
       justifyContent={"space-between"}
+      alignItems={"center"}
       py={5}
       px={40}
+      direction={{
+        sm: "column",
+        md: "row",
+      }}
+      spacing={{
+        sm: 4,
+        md: 0,
+      }}
       borderBottomWidth={1}
     >
       <Box color="red.500">
@@ -53,6 +62,6 @@ export default function Header() {
       </HStack>
       <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
       <SignUpModal isOpen={isSignUpOpen} onClose={onSignUpClose} />
-    </HStack>
+    </Stack>
   );
 }
