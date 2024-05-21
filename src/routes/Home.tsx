@@ -1,6 +1,7 @@
 import { FaStar, FaRegHeart } from "react-icons/fa";
 import {
   Box,
+  Button,
   Grid,
   HStack,
   Image,
@@ -23,9 +24,9 @@ export default function Home() {
             h="280"
             src="https://a0.muscache.com/im/pictures/miso/Hosting-47181423/original/39c9d4e7-78d0-4807-9f0d-3029d987d02a.jpeg?im_w=720"
           />
-          <Box cursor={"pointer"} position="absolute" top={5} right={5} color="white">
+          <Button variant={"unstyled"} position="absolute" top={0} right={0} color="white">
             <FaRegHeart size={20} />
-          </Box>
+          </Button>
         </Box>
         <Box>
           <Grid gap={2} templateColumns={"6fr 1fr"}>
