@@ -13,10 +13,16 @@ export default function Home() {
   return (
     <Grid
       mt={10}
-      px={40}
+      px={{
+        base: 10,  // base: mobile
+        lg: 40
+      }}
       columnGap={4}
       rowGap={8}
-      templateColumns={"repeat(5, 1fr)"}
+      templateColumns={{
+        base: "1fr",
+        lg: "repeat(5, 1fr)"
+      }}
     >
       {[...Array(20)].map(index => (
         <VStack alignItems={"flex-start"}>
