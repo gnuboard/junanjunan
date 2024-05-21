@@ -20,8 +20,11 @@ export default function Home() {
       columnGap={4}
       rowGap={8}
       templateColumns={{
-        base: "1fr",
-        lg: "repeat(5, 1fr)"
+        sm: "1fr",
+        md: "1fr 1fr",
+        lg: "repeat(3, 1fr)",
+        xl: "repeat(4, 1fr)",
+        "2xl": "repeat(5, 1fr)",
       }}
     >
       {[...Array(20)].map(index => (
