@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/react";
+import { Grid, Box, Skeleton, SkeletonText } from "@chakra-ui/react";
 import Write from "../components/Write";
 
 export default function Home() {
@@ -19,9 +19,13 @@ export default function Home() {
         "2xl": "repeat(5, 1fr)",
       }}
     >
-      {[...Array(20)].map(index => (
-        <Write key={index} />
-      ))}
+      <Box>
+        <Skeleton rounded="2xl" height={280} mb={6} />
+        <SkeletonText noOfLines={3} />
+      </Box>
+      <Box>
+        <Write />
+      </Box>
     </Grid>
   );
 }
