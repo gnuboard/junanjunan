@@ -1,10 +1,11 @@
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import {
   Box, Button, Grid, HStack,
-  Image, Text, VStack,
+  Image, Text, VStack, useColorModeValue
 } from "@chakra-ui/react";
 
 export default function Write() {
+  const gray = useColorModeValue("gray.600", "gray.300");
   return (
     <VStack alignItems={"flex-start"}>
       <Box position="relative" overflow={"hidden"} mb={3} rounded="2xl">
@@ -32,11 +33,11 @@ export default function Write() {
             <Text fontSize={"sm"}>5.0</Text>
           </HStack>
         </Grid>
-        <Text fontSize={"sm"} color="gray.600">
+        <Text fontSize={"sm"} color={gray}>
           Seoul, S. Korea
         </Text>
       </Box>
-      <Text fontSize={"sm"} color="gray.600">
+      <Text fontSize={"sm"} color={gray}>
         <Text as="b">$72</Text> / night
       </Text>
     </VStack>
