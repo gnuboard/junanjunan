@@ -92,6 +92,7 @@ export default function Home() {
       {data?.writes.map((write) => (
         <Box>
           <Write
+            wr_id={write.wr_id}
             wr_subject={write.wr_subject}
             wr_name={write.wr_name}
             wr_comment={write.wr_comment}
