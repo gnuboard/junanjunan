@@ -6,7 +6,5 @@ const axiosInstance = axios.create({
 })
 
 
-export async function getWrites() {
-  const response = await axiosInstance.get("/boards/free/writes");
-  return response.data;
-}
+export const getWrites = async () =>
+  axiosInstance.get("/boards/free/writes").then(res => res.data);
