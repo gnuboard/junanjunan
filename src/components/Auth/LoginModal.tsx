@@ -16,15 +16,10 @@ import {
 } from "@chakra-ui/react";
 import { FaUserNinja, FaLock } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
+import { ILoginModalProps } from "../../types";
 
 
-interface LoginModalProps {
-  onClose: () => void;
-  isOpen: boolean;
-}
-
-
-export default function LoginModal ( {onClose, isOpen}: LoginModalProps ) {
+export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
   return (
     <Modal motionPreset="slideInBottom" onClose={onClose} isOpen={isOpen}>
       <ModalOverlay />

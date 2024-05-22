@@ -14,13 +14,10 @@ import {
   } from "@chakra-ui/react";
   import { FaUserNinja, FaLock, FaEnvelope, FaUserSecret } from "react-icons/fa";
   import SocialLogin from "./SocialLogin";
+  import { ISignUpModalProps } from "../../types";
+    
   
-  interface SignUpModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-  }
-  
-  export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
+  export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
     return (
       <Modal onClose={onClose} isOpen={isOpen}>
         <ModalOverlay />
