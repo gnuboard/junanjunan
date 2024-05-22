@@ -36,7 +36,7 @@ interface IBoard {
   bo_category_list: string;
 }
   
-interface IWrite {
+export interface IWrite {
   wr_id: number;
   wr_num: number;
   wr_reply: string;
