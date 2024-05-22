@@ -6,13 +6,11 @@ import {
   InputLeftElement,
   Modal,
   ModalBody,
-  ModalFooter,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
   VStack,
-  Divider,
 } from "@chakra-ui/react";
 import { FaUserNinja, FaLock } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
