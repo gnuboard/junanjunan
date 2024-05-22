@@ -1,6 +1,7 @@
 import { Grid, Box, Skeleton, SkeletonText } from "@chakra-ui/react";
 import Write from "../components/Write";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getWrites } from "../api";
 
 
 interface IBoard {
@@ -58,47 +59,10 @@ interface IBoardData {
 
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [writes, setWrites] = useState<IBoardData>({
-    categories: [],
-    board: {
-      bo_table: "",
-      gr_id: "",
-      bo_subject: "",
-      bo_mobile_subject: "",
-      bo_device: "",
-      bo_admin: "",
-      bo_list_level: 0,
-      bo_read_level: 0,
-      bo_write_level: 0,
-      bo_reply_level: 0,
-      bo_comment_level: 0,
-      bo_upload_level: 0,
-      bo_download_level: 0,
-      bo_html_level: 0,
-      bo_link_level: 0,
-      bo_count_delete: 0,
-      bo_count_modify: 0,
-      bo_read_point: 0,
-      bo_write_point: 0,
-      bo_comment_point: 0,
-      bo_download_point: 0,
-      bo_use_category: 0,
-      bo_category_list: ""
-    },
-    writes: []
+  const { isLoading, data } = useQuery<IBoardData>({
+    queryKey: ["writes"],
+    queryFn: getWrites,
   });
-
-  const fetchWrites = async () => {
-    const response = await fetch("http://127.0.0.1:8000/api/v1/boards/free/writes");
-    const json = await response.json();
-    setWrites(json);
-    setIsLoading(false);
-
-  }
-
-  useEffect(() => {fetchWrites();}, []);
 
   return (
     <Grid
@@ -125,7 +89,7 @@ export default function Home() {
           </Box>
         ) : null
       }
-      {writes.writes.map((write) => (
+      {data?.writes.map((write) => (
         <Box>
           <Write
             wr_subject={write.wr_subject}
