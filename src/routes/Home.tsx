@@ -99,7 +99,7 @@ export default function Home() {
             img={
               write.images[0]
               ? "http://127.0.0.1:8000/"+ write.images[0].bf_file
-              : "https://a0.muscache.com/im/pictures/miso/Hosting-47181423/original/39c9d4e7-78d0-4807-9f0d-3029d987d02a.jpeg?im_w=720"
+              : `${process.env.PUBLIC_URL}/no_img.png`
             } 
           />
         </Box>
