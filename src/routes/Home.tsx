@@ -1,7 +1,105 @@
 import { Grid, Box, Skeleton, SkeletonText } from "@chakra-ui/react";
 import Write from "../components/Write";
+import { useEffect, useState } from "react";
+
+
+interface IBoard {
+  bo_table: string;
+  gr_id: string;
+  bo_subject: string;
+  bo_mobile_subject: string;
+  bo_device: string;
+  bo_admin: string;
+  bo_list_level: number;
+  bo_read_level: number;
+  bo_write_level: number;
+  bo_reply_level: number;
+  bo_comment_level: number;
+  bo_upload_level: number;
+  bo_download_level: number;
+  bo_html_level: number;
+  bo_link_level: number;
+  bo_count_delete: number;
+  bo_count_modify: number;
+  bo_read_point: number;
+  bo_write_point: number;
+  bo_comment_point: number;
+  bo_download_point: number;
+  bo_use_category: number;
+  bo_category_list: string;
+}
+
+interface IWrite {
+  wr_id: number;
+  wr_num: number;
+  wr_reply: string;
+  wr_subject: string;
+  wr_name: string;
+  mb_id: string;
+  wr_datetime: string;
+  wr_email: string;
+  wr_content: string;
+  wr_link1: string;
+  wr_link2: string;
+  wr_comment: number;
+  wr_hit: number;
+  wr_ip: string;
+  wr_option: string;
+  images: any[];
+  normal_files: any[];
+  comments: any[];
+}
+
+interface IBoardData {
+  categories: any[];
+  board: IBoard;
+  writes: IWrite[];
+}
+
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [writes, setWrites] = useState<IBoardData>({
+    categories: [],
+    board: {
+      bo_table: "",
+      gr_id: "",
+      bo_subject: "",
+      bo_mobile_subject: "",
+      bo_device: "",
+      bo_admin: "",
+      bo_list_level: 0,
+      bo_read_level: 0,
+      bo_write_level: 0,
+      bo_reply_level: 0,
+      bo_comment_level: 0,
+      bo_upload_level: 0,
+      bo_download_level: 0,
+      bo_html_level: 0,
+      bo_link_level: 0,
+      bo_count_delete: 0,
+      bo_count_modify: 0,
+      bo_read_point: 0,
+      bo_write_point: 0,
+      bo_comment_point: 0,
+      bo_download_point: 0,
+      bo_use_category: 0,
+      bo_category_list: ""
+    },
+    writes: []
+  });
+
+  const fetchWrites = async () => {
+    const response = await fetch("http://127.0.0.1:8000/api/v1/boards/free/writes");
+    const json = await response.json();
+    setWrites(json);
+    setIsLoading(false);
+
+  }
+
+  useEffect(() => {fetchWrites();}, []);
+
   return (
     <Grid
       mt={10}
@@ -19,13 +117,29 @@ export default function Home() {
         "2xl": "repeat(5, 1fr)",
       }}
     >
-      <Box>
-        <Skeleton rounded="2xl" height={280} mb={6} />
-        <SkeletonText noOfLines={3} />
-      </Box>
-      <Box>
-        <Write />
-      </Box>
+      {
+        isLoading ? (
+          <Box>
+            <Skeleton rounded="2xl" height={280} mb={6} />
+            <SkeletonText noOfLines={3} />
+          </Box>
+        ) : null
+      }
+      {writes.writes.map((write) => (
+        <Box>
+          <Write
+            wr_subject={write.wr_subject}
+            wr_name={write.wr_name}
+            wr_comment={write.wr_comment}
+            wr_hit={write.wr_hit}
+            img={
+              write.images[0]
+              ? "http://127.0.0.1:8000/"+ write.images[0].bf_file
+              : "https://a0.muscache.com/im/pictures/miso/Hosting-47181423/original/39c9d4e7-78d0-4807-9f0d-3029d987d02a.jpeg?im_w=720"
+            } 
+          />
+        </Box>
+      ))}
     </Grid>
   );
 }
