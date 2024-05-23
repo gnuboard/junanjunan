@@ -1,7 +1,7 @@
 import { FaMoon, FaSun } from "react-icons/fa";
 import { 
   Box, Button, HStack, IconButton, useDisclosure,
-  useColorMode, useColorModeValue, Stack
+  useColorMode, useColorModeValue, Stack, Avatar
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import LoginModal from "./Auth/LoginModal";
@@ -57,10 +57,18 @@ export default function Header() {
           aria-label="Toggle dark mode"
           icon={<Icon />}
         />
-        <Button onClick={onLoginOpen}>Log in</Button>
-        <Button onClick={onSignUpOpen} colorScheme={"blue"}>
-          Sign up
-        </Button>
+        {!memberLoading ? (
+          !isLoggedIn ? (
+            <>
+              <Button onClick={onLoginOpen}>Log in</Button>
+              <Button onClick={onSignUpOpen} colorScheme={"blue"}>
+                Sign up
+              </Button>
+            </>
+          ) : (
+            <Avatar size={"md"}/>
+          )
+        ) : null}
       </HStack>
       <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
       <SignUpModal isOpen={isSignUpOpen} onClose={onSignUpClose} />
