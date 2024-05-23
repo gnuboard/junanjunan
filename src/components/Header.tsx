@@ -6,9 +6,11 @@ import {
 import { Link } from "react-router-dom";
 import LoginModal from "./Auth/LoginModal";
 import SignUpModal from "./Auth/SignUpModal";
+import useMember from "../lib/useMember";
 
 
 export default function Header() {
+  const { memberLoading, member, isLoggedIn } = useMember();
   const {
     isOpen: isLoginOpen,
     onClose: onLoginClose,
