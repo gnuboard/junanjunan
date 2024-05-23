@@ -4,7 +4,7 @@ import { getWrite } from "../api";
 import { IHtmlContent, IWrite } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
-  Avatar, HStack, Text, VStack
+  Avatar, HStack, Text, VStack, Container
 } from "@chakra-ui/react";
 
 
@@ -70,6 +70,27 @@ export default function WriteDetail() {
         ))}
       </Grid>
       <HtmlContent html={data ? data.wr_content : ""} />
+      <Container mt={16} maxW="container.lg" marginX="none">
+        <Heading fontSize={"large"} marginBottom={"50px"}>댓글</Heading>
+        <Grid gap={10}>
+          {data?.comments.map((comment, index) => (
+            <HStack alignItems={"flex-start"} key={index}>
+              <Avatar
+                name={comment.wr_name}
+                // src={comment.user.avatar}
+                size="md"
+              />
+              <VStack align={"flex-start"}>
+                <HStack>
+                  <Heading fontSize={"md"}>{comment.wr_name}</Heading>
+                  <Text>{comment.wr_datetime}</Text>  
+                </HStack>
+                <Text>{comment.save_content}</Text>
+              </VStack>
+            </HStack>
+          ))}
+        </Grid>
+      </Container>
     </Box>
   );
 }
