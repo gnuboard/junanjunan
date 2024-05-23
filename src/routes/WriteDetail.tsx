@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getWrite } from "../api";
-import { IWrite } from "../types";
+import { IHtmlContent, IWrite } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
   Avatar, HStack, Text, VStack
@@ -11,6 +11,11 @@ import {
 function get_img_url (bf_file: string) {
   return `http://localhost:8000/${bf_file}`;
 }
+
+
+const HtmlContent = ({ html }: IHtmlContent) =>
+  <Box dangerouslySetInnerHTML={{ __html: html }} marginTop={"10px"} />;
+
 
 export default function WriteDetail() {
   const { wr_id } = useParams();
@@ -64,13 +69,7 @@ export default function WriteDetail() {
           </GridItem>
         ))}
       </Grid>
-      <HStack width={"40%"} justifyContent={"space-between"} mt={10}>
-        <VStack alignItems={"flex-start"}>
-          <Text>
-            {data?.wr_content}
-          </Text>
-        </VStack>
-      </HStack>
+      <HtmlContent html={data ? data.wr_content : ""} />
     </Box>
   );
 }

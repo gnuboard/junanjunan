@@ -72,3 +72,8 @@ export interface IWriteProps {
   wr_hit: number;
   img: string;
 }
+
+
+export interface IHtmlContent {
+  html: string;
+}
