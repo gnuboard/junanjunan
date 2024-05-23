@@ -9,6 +9,12 @@ import {
 
 
 function get_img_url (bf_file: string) {
+  if (!bf_file) {
+    return "";
+  }
+  if (bf_file.startsWith("/")) {
+    bf_file = bf_file.slice(1);
+  }
   return `http://localhost:8000/${bf_file}`;
 }
 
@@ -30,7 +36,7 @@ export default function WriteDetail() {
     >
       <Heading fontSize={"x-large"} marginBottom={"10px"}>{ data?.wr_subject }</Heading>
       <HStack>
-        <Avatar name={data?.wr_name} size={"md"} src={data?.wr_email} />
+        <Avatar name={data?.wr_name} size={"md"} src={data ? get_img_url(data.mb_image_path) : ""} />
         <VStack align={"flex-start"}>
           <Heading fontSize={"medium"}>{data?.wr_name}({data?.wr_ip})</Heading>
           <HStack>
@@ -77,13 +83,14 @@ export default function WriteDetail() {
             <HStack alignItems={"flex-start"} key={index}>
               <Avatar
                 name={comment.wr_name}
-                // src={comment.user.avatar}
+                src={get_img_url(comment.mb_image_path)}
                 size="md"
               />
               <VStack align={"flex-start"}>
                 <HStack>
+                  <Avatar name={data?.wr_name} size={"2xs"} src={data ? get_img_url(data.mb_icon_path) : ""} />
                   <Heading fontSize={"md"}>{comment.wr_name}</Heading>
-                  <Text>{comment.wr_datetime}</Text>  
+                  <Text>{comment.wr_datetime}</Text>
                 </HStack>
                 <Text>{comment.save_content}</Text>
               </VStack>

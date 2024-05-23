@@ -52,6 +52,8 @@ export interface IWrite {
   wr_hit: number;
   wr_ip: string;
   wr_option: string;
+  mb_image_path: string;
+  mb_icon_path: string;
   images: any[];
   normal_files: any[];
   comments: any[];
