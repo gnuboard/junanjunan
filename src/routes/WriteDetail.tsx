@@ -57,7 +57,6 @@ export default function WriteDetail() {
         rounded="xl"
         overflow={"hidden"}
         gap={2}
-        height="100vh"
         templateRows={"1fr 1fr"}
         templateColumns={"repeat(4, 1fr)"}
       >
