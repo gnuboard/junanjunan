@@ -35,7 +35,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
       <ModalContent>
         <ModalHeader>Log in</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody as="form">
           <VStack>
             <InputGroup size={"md"}>
               <InputLeftElement
