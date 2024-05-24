@@ -29,13 +29,16 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
       setPassword(value);
     }
   }
+  const onSubmit = (event:React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  }
   return (
     <Modal motionPreset="slideInBottom" onClose={onClose} isOpen={isOpen}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Log in</ModalHeader>
         <ModalCloseButton />
-        <ModalBody as="form">
+        <ModalBody as="form" onSubmit={onSubmit as any}>
           <VStack>
             <InputGroup size={"md"}>
               <InputLeftElement
@@ -58,7 +61,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
               <Input required name="password" type="password" onChange={onChange} value={password} variant={"filled"} placeholder="Password" />
             </InputGroup>
           </VStack>
-          <Button mt={4} colorScheme={"blue"} w="100%">
+          <Button type="submit" mt={4} colorScheme={"blue"} w="100%">
             Log in
           </Button>
           <SocialLogin />
