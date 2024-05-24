@@ -15,22 +15,13 @@ import {
 import { FaUserNinja, FaLock } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
 import { ILoginModalProps } from "../../types";
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 
 export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const onChange = (event:React.SyntheticEvent<HTMLInputElement>) => {
-    const { name, value } = event.currentTarget;
-    if(name === "username") {
-      setUsername(value);
-    } else if(name === "password") {
-      setPassword(value);
-    }
-  }
-  const onSubmit = (event:React.SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = () => {
+    console.log("submit");
   }
   return (
     <Modal motionPreset="slideInBottom" onClose={onClose} isOpen={isOpen}>
@@ -38,7 +29,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
       <ModalContent>
         <ModalHeader>Log in</ModalHeader>
         <ModalCloseButton />
-        <ModalBody as="form" onSubmit={onSubmit as any}>
+        <ModalBody as="form" onSubmit={handleSubmit(onSubmit)}>
           <VStack>
             <InputGroup size={"md"}>
               <InputLeftElement
@@ -50,9 +41,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
               />
               <Input
                 required
-                name="username"
-                onChange={onChange}
-                value={username}
+                {...register("username")}
                 variant={"filled"}
                 placeholder="Username" 
               />
@@ -67,10 +56,8 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
               />
               <Input
                 required
-                name="password"
+                {...register("password")}
                 type="password"
-                onChange={onChange}
-                value={password}
                 variant={"filled"}
                 placeholder="Password" 
               />
