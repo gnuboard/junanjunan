@@ -40,8 +40,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
                 }
               />
               <Input
-                required
-                {...register("username")}
+                {...register("username", {required: "Username is required"})}
                 variant={"filled"}
                 placeholder="Username" 
               />
@@ -55,8 +54,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
                 }
               />
               <Input
-                required
-                {...register("password")}
+                {...register("password", {required: "Password is required"})}
                 type="password"
                 variant={"filled"}
                 placeholder="Password" 
