@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   VStack,
+  Text,
 } from "@chakra-ui/react";
 import { FaUserNinja, FaLock } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
@@ -19,7 +20,7 @@ import { useForm } from "react-hook-form";
 
 
 export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
-  const { register, handleSubmit } = useForm<ILoginForm>();
+  const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>();
   const onSubmit = (data: ILoginForm) => {
     console.log(data);
   }
@@ -41,10 +42,12 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
               />
               <Input
                 {...register("username", {required: "Username is required"})}
+                isInvalid={Boolean(errors.username)}
                 variant={"filled"}
                 placeholder="Username" 
               />
             </InputGroup>
+            <Text fontSize={"sm"} color="red.500">{errors.username?.message}</Text>
             <InputGroup>
               <InputLeftElement
                 children={
@@ -55,11 +58,13 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
               />
               <Input
                 {...register("password", {required: "Password is required"})}
+                isInvalid={Boolean(errors.password)}
                 type="password"
                 variant={"filled"}
                 placeholder="Password" 
               />
             </InputGroup>
+            <Text fontSize={"sm"} color="red.500">{errors.password?.message}</Text>
           </VStack>
           <Button type="submit" mt={4} colorScheme={"blue"} w="100%">
             Log in
