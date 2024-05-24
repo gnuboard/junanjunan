@@ -79,3 +79,9 @@ export interface IWriteProps {
 export interface IHtmlContent {
   html: string;
 }
+
+
+export interface ILoginForm {
+  username: string;
+  password: string;
+}

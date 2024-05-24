@@ -14,14 +14,14 @@ import {
 } from "@chakra-ui/react";
 import { FaUserNinja, FaLock } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
-import { ILoginModalProps } from "../../types";
+import { ILoginModalProps, ILoginForm } from "../../types";
 import { useForm } from "react-hook-form";
 
 
 export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = () => {
-    console.log("submit");
+  const { register, handleSubmit } = useForm<ILoginForm>();
+  const onSubmit = (data: ILoginForm) => {
+    console.log(data);
   }
   return (
     <Modal motionPreset="slideInBottom" onClose={onClose} isOpen={isOpen}>
