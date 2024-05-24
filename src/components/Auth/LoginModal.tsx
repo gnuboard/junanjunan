@@ -45,7 +45,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
                   </Box>
                 }
               />
-              <Input name="username" onChange={onChange} value={username} variant={"filled"} placeholder="Username" />
+              <Input required name="username" onChange={onChange} value={username} variant={"filled"} placeholder="Username" />
             </InputGroup>
             <InputGroup>
               <InputLeftElement
@@ -55,7 +55,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
                   </Box>
                 }
               />
-              <Input name="password" onChange={onChange} value={password} variant={"filled"} placeholder="Password" />
+              <Input required name="password" type="password" onChange={onChange} value={password} variant={"filled"} placeholder="Password" />
             </InputGroup>
           </VStack>
           <Button mt={4} colorScheme={"blue"} w="100%">
