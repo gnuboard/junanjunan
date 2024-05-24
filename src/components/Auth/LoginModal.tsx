@@ -14,15 +14,30 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaUserNinja, FaLock } from "react-icons/fa";
+import { useMutation } from "@tanstack/react-query";
 import SocialLogin from "./SocialLogin";
 import { ILoginModalProps, ILoginForm } from "../../types";
+import { usernameLogIn } from "../../api";
 import { useForm } from "react-hook-form";
 
 
 export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
   const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>();
-  const onSubmit = (data: ILoginForm) => {
-    console.log(data);
+  const mutation = useMutation({
+    mutationFn: usernameLogIn,
+    onMutate: () => {
+      console.log("mutation starting");
+    },
+    onSuccess: (data) => {
+      console.log("mutation is successful");
+      console.log(data);
+    },
+    onError: (error) => {
+      console.error(error);
+    }
+  });
+  const onSubmit = ({ username, password }: ILoginForm) => {
+    mutation.mutate({ username, password });
   }
   return (
     <Modal motionPreset="slideInBottom" onClose={onClose} isOpen={isOpen}>

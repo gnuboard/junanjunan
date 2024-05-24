@@ -85,3 +85,9 @@ export interface ILoginForm {
   username: string;
   password: string;
 }
+
+
+export interface IUsernmaeLoginVariables {
+  username: string;
+  password: string;
+}
