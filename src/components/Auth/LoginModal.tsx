@@ -18,7 +18,7 @@ import { FaUserNinja, FaLock } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import SocialLogin from "./SocialLogin";
 import { ILoginModalProps, ILoginForm } from "../../types";
-import { usernameLogIn } from "../../api";
+import { usernameLogIn, getMe } from "../../api";
 import { setCredentials } from "../../store/authSlice";
 import { useForm } from "react-hook-form";
 
@@ -37,6 +37,11 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
       const access_token = data.access_token;
       const refresh_token = data.refresh_token;
       dispatch(setCredentials({access_token, refresh_token}));
+
+      getMe({ queryKey: ["me", access_token] }).then(res => {
+        const userInfo = res;
+        console.log(userInfo);
+      });
     },
     onError: (error) => {
       console.error(error);
