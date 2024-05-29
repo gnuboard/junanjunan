@@ -47,9 +47,11 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
       console.error(error);
     }
   });
+
   const onSubmit = ({ username, password }: ILoginForm) => {
     mutation.mutate({ username, password });
   }
+
   return (
     <Modal motionPreset="slideInBottom" onClose={onClose} isOpen={isOpen}>
       <ModalOverlay />
