@@ -93,7 +93,7 @@ export interface IUsernmaeLoginVariables {
 }
 
 
-export interface IAuthToken {
-  access_token: string | null;
-  refresh_token: string | null;
+export interface IAuthTokenState {
+  access_token: string;
+  refresh_token: string;
 }
