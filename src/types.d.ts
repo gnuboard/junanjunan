@@ -100,7 +100,7 @@ export interface IAuthTokenState {
 
 
 export interface IRootState {
-  auth: IAuthTokenState;
+  token: IAuthTokenState;
 }
 
 

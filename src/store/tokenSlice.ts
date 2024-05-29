@@ -6,8 +6,8 @@ const initialState: IAuthTokenState = {
   refresh_token: "",
 };
 
-export const authSlice = createSlice({
-  name: 'auth',
+export const tokenSlice = createSlice({
+  name: "token",
   initialState,
   reducers: {
     setCredentials: (state, action: PayloadAction<IAuthTokenState>) => {
@@ -22,6 +22,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logout } = tokenSlice.actions;
 
-export default authSlice.reducer;
+export default tokenSlice.reducer;

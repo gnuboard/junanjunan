@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { IRootState } from "../types";
 
 export default function useMember() {
-    const access_token = useSelector((state: IRootState) => state.auth.access_token);
+    const access_token = useSelector((state: IRootState) => state.token.access_token);
     const { isLoading, data, isError } = useQuery({
         queryKey: ["me", access_token],
         queryFn: getMe,
