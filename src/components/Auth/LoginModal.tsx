@@ -19,7 +19,7 @@ import { useMutation } from "@tanstack/react-query";
 import SocialLogin from "./SocialLogin";
 import { ILoginModalProps, ILoginForm } from "../../types";
 import { usernameLogIn, getMe } from "../../api";
-import { setCredentials } from "../../store/tokenSlice";
+import { setCredentials } from "../../store/auth/tokenSlice";
 import { useForm } from "react-hook-form";
 
 
