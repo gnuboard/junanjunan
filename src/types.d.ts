@@ -97,3 +97,8 @@ export interface IAuthTokenState {
   access_token: string;
   refresh_token: string;
 }
+
+
+export interface IRootState {
+  auth: IAuthTokenState;
+}
