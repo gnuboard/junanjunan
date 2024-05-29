@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import LoginModal from "./Auth/LoginModal";
 import SignUpModal from "./Auth/SignUpModal";
 import useMember from "../lib/useMember";
+import { get_img_url } from "../lib/files";
 
 
 export default function Header() {
@@ -66,7 +67,7 @@ export default function Header() {
               </Button>
             </>
           ) : (
-            <Avatar size={"md"}/>
+            <Avatar size={"md"} src={get_img_url(member.mb_icon_path)}/>
           )
         ) : null}
       </HStack>
