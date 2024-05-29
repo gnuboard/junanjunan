@@ -13,16 +13,20 @@ import {
   VStack,
   Text,
 } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 import { FaUserNinja, FaLock } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import SocialLogin from "./SocialLogin";
 import { ILoginModalProps, ILoginForm } from "../../types";
 import { usernameLogIn } from "../../api";
+import { setCredentials } from "../../store/authSlice";
 import { useForm } from "react-hook-form";
 
 
 export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
   const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>();
+  const dispatch = useDispatch();
+
   const mutation = useMutation({
     mutationFn: usernameLogIn,
     onMutate: () => {
@@ -30,7 +34,9 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
     },
     onSuccess: (data) => {
       console.log("mutation is successful");
-      console.log(data);
+      const access_token = data.access_token;
+      const refresh_token = data.refresh_token;
+      dispatch(setCredentials({access_token, refresh_token}));
     },
     onError: (error) => {
       console.error(error);
