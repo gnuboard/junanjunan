@@ -91,3 +91,9 @@ export interface IUsernmaeLoginVariables {
   username: string;
   password: string;
 }
+
+
+export interface IAuthToken {
+  access_token: string | null;
+  refresh_token: string | null;
+}
