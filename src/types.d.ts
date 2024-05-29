@@ -102,3 +102,8 @@ export interface IAuthTokenState {
 export interface IRootState {
   auth: IAuthTokenState;
 }
+
+
+export interface IGetMe {
+  queryKey: [string, string];
+}

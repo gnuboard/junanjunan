@@ -1,6 +1,6 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
-import { IUsernmaeLoginVariables } from "./types";
+import { IUsernmaeLoginVariables, IGetMe } from "./types";
 
 const axiosInstance = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1"
@@ -17,8 +17,12 @@ export const getWrite = async ({ queryKey }: QueryFunctionContext) =>{
 }
 
 
-export const getMe = async () =>
-  axiosInstance.get("/members/me").then(res => res.data);
+export const getMe = async ({ queryKey }: IGetMe) => {
+  const url = "/members/me";
+  const [, access_token] = queryKey;
+  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+  return axiosInstance.get(url, headers).then(res => res.data);
+}
 
 
 export const usernameLogIn = async ({username, password}: IUsernmaeLoginVariables) =>{
