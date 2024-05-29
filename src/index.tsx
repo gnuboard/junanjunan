@@ -1,11 +1,12 @@
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
 import theme from './theme';
-import { store } from './store/store';
+import { store, persistor } from './store/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 
@@ -17,12 +18,14 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ReduxProvider store={store}>
-      <QueryClientProvider client={client}>
-        <ChakraProvider theme={theme}>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <RouterProvider router={router} />
-        </ChakraProvider>
-      </QueryClientProvider>
+      <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        <QueryClientProvider client={client}>
+          <ChakraProvider theme={theme}>
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+            <RouterProvider router={router} />
+          </ChakraProvider>
+        </QueryClientProvider>
+      </PersistGate>
     </ReduxProvider>
   </React.StrictMode>
 );
