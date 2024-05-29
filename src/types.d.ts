@@ -99,16 +99,6 @@ export interface IAuthTokenState {
 }
 
 
-export interface IRootState {
-  token: IAuthTokenState;
-}
-
-
-export interface IGetMe {
-  queryKey: [string, string];
-}
-
-
 export interface ILoginUserData {
   mb_id: string;
   mb_name: string;
@@ -119,4 +109,15 @@ export interface ILoginUserData {
   mb_memo_cnt: number;
   mb_point: number;
   mb_scrap_cnt: number;
+}
+
+
+export interface IRootState {
+  token: IAuthTokenState;
+  loginUser: ILoginUserData;
+}
+
+
+export interface IGetMe {
+  queryKey: [string, string];
 }
