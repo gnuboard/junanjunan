@@ -8,10 +8,13 @@ import LoginModal from "./Auth/LoginModal";
 import SignUpModal from "./Auth/SignUpModal";
 import useMember from "../lib/useMember";
 import { get_img_url } from "../lib/files";
+import { useSelector } from "react-redux";
+import { IRootState } from "../types";
 
 
 export default function Header() {
   const { memberLoading, member, isLoggedIn } = useMember();
+  const loginUser = useSelector((state: IRootState) => state.loginUser);
   const {
     isOpen: isLoginOpen,
     onClose: onLoginClose,
@@ -70,6 +73,7 @@ export default function Header() {
             <Avatar size={"md"} src={get_img_url(member.mb_icon_path)}/>
           )
         ) : null}
+        <Avatar size={"md"} src={get_img_url(loginUser.mb_icon_path)}/>
       </HStack>
       <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
       <SignUpModal isOpen={isSignUpOpen} onClose={onSignUpClose} />
