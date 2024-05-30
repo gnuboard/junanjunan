@@ -95,6 +95,15 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
               />
             </InputGroup>
             <Text fontSize={"sm"} color="red.500">{errors.password?.message}</Text>
+            {
+              mutation.isError
+              ? (
+                <Text color="red.500" textAlign={"center"} fontSize="sm">
+                  Username or Password are wrong
+                </Text>
+              )
+              : null
+            }
           </VStack>
           <Button isLoading={mutation.isPending} type="submit" mt={4} colorScheme={"blue"} w="100%">
             Log in
