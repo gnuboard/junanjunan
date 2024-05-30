@@ -42,6 +42,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
         const userInfo = res;
         dispatch(setLoginUser(userInfo));
       });
+      onClose();
     },
     onError: (error) => {
       console.error(error);
