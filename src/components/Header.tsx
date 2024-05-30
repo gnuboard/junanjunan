@@ -7,11 +7,17 @@ import { Link } from "react-router-dom";
 import LoginModal from "./Auth/LoginModal";
 import SignUpModal from "./Auth/SignUpModal";
 import { get_img_url } from "../lib/files";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../types";
-
+import { logout as tokenLogout } from "../store/auth/tokenSlice";
+import { logout as userLogout } from "../store/auth/loginUserSlice";
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(tokenLogout());
+    dispatch(userLogout());
+  }
   const loginUser = useSelector((state: IRootState) => state.loginUser);
   const isLoggedIn = (loginUser.mb_id !== "");
   const {
@@ -69,7 +75,10 @@ export default function Header() {
               </Button>
             </>
           ) : (
-            <Avatar size={"md"} src={get_img_url(loginUser.mb_icon_path)}/>
+            <>
+              <Avatar size={"md"} src={get_img_url(loginUser.mb_icon_path)}/>
+              <Button onClick={handleLogout}>Logout</Button>
+            </>
           )
         }
       </HStack>
