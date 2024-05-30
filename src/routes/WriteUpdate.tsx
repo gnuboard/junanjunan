@@ -7,10 +7,15 @@ import { getWrite } from "../api";
 
 export default function WriteUpdate() {
   const { wr_id } = useParams();
-  const { data } = useQuery<IWrite>({
+  const { isLoading, data } = useQuery<IWrite>({
     queryKey: ["write", wr_id],
     queryFn: getWrite
   });
   console.log(data);
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
   return <Text>Update Write</Text>;
 }
