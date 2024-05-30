@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getWrite } from "../api";
 import { IHtmlContent, IWrite } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
-  Avatar, HStack, Text, VStack, Container
+  Avatar, HStack, Text, VStack, Container, Button
 } from "@chakra-ui/react";
 import { get_img_url } from "../lib/files";
 
@@ -41,6 +41,9 @@ export default function WriteDetail() {
             </Text>
           </HStack>
         </VStack>
+        <Link to={`/writes/${wr_id}/update`}>
+          <Button>수정</Button>
+        </Link>
       </HStack>
       <Grid
         mt={8}
