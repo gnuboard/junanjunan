@@ -25,22 +25,24 @@ export default function WriteDetail() {
       px={{ base: 10, lg: 40 }}
     >
       <Heading fontSize={"x-large"} marginBottom={"10px"}>{ data?.wr_subject }</Heading>
-      <HStack>
-        <Avatar name={data?.wr_name} size={"md"} src={data ? get_img_url(data.mb_image_path) : ""} />
-        <VStack align={"flex-start"}>
-          <Heading fontSize={"medium"}>{data?.wr_name}({data?.wr_ip})</Heading>
-          <HStack>
-            <Text>조회수 {data?.wr_hit}</Text>
-            <Text>/</Text>
-            <Text>
-              댓글 {data?.wr_comment}
-            </Text>
-            <Text>/</Text>
-            <Text>
-              {data?.wr_datetime}
-            </Text>
-          </HStack>
-        </VStack>
+      <HStack justifyContent={"space-between"}>
+        <HStack>
+          <Avatar name={data?.wr_name} size={"md"} src={data ? get_img_url(data.mb_image_path) : ""} />
+          <VStack align={"flex-start"}>
+            <Heading fontSize={"medium"}>{data?.wr_name}({data?.wr_ip})</Heading>
+            <HStack>
+              <Text>조회수 {data?.wr_hit}</Text>
+              <Text>/</Text>
+              <Text>
+                댓글 {data?.wr_comment}
+              </Text>
+              <Text>/</Text>
+              <Text>
+                {data?.wr_datetime}
+              </Text>
+            </HStack>
+          </VStack>
+        </HStack>
         <Link to={`/writes/${wr_id}/update`}>
           <Button>수정</Button>
         </Link>
