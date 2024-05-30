@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Text } from "@chakra-ui/react";
+import { 
+  Button,
+  Container, FormControl, FormLabel, Input, InputGroup,
+  InputLeftAddon, Text, Textarea, VStack
+ } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { IWrite } from "../types";
 import { getWrite } from "../api";
@@ -24,5 +28,30 @@ export default function WriteUpdate() {
     navigate("/");
   }
 
-  return <Text>Update Write</Text>;
+  return (
+    <Container mt={10} px={{ base: 10, lg: 40 }}>
+      <VStack>
+        <FormControl>
+          <FormLabel>제목</FormLabel>
+          <Input required type="text" value={data?.wr_subject} />
+        </FormControl>
+        <FormControl>
+          <Textarea required value={data?.wr_content} />
+        </FormControl>
+        <FormControl>
+          <InputGroup>
+            <InputLeftAddon children="Link1" />
+            <Input required type="text" value={data?.wr_link1} />
+          </InputGroup>
+        </FormControl>
+        <FormControl>
+          <InputGroup>
+            <InputLeftAddon children="Link2" />
+            <Input required type="text" value={data?.wr_link2} />
+          </InputGroup>
+        </FormControl>
+        <Button colorScheme={"blue"} size="lg" w="100%">저장하기</Button>
+      </VStack>
+    </Container>
+  );
 }
