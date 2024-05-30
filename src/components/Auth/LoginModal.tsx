@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 
 
 export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
-  const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<ILoginForm>();
   const dispatch = useDispatch();
 
   const mutation = useMutation({
@@ -43,6 +43,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
         dispatch(setLoginUser(userInfo));
       });
       onClose();
+      reset();
     },
     onError: (error) => {
       console.error(error);
