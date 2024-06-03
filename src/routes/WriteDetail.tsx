@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
 import { getWrite } from "../api";
-import { IErrorGetWrite, IHtmlContent, IWrite } from "../types";
+import { IHtmlContent, IWrite } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
   Avatar, HStack, Text, VStack, Container, Button
 } from "@chakra-ui/react";
 import { get_img_url } from "../lib/files";
+import { AxiosError } from "axios";
 
 
 const HtmlContent = ({ html }: IHtmlContent) =>
@@ -19,9 +20,8 @@ export default function WriteDetail() {
     queryKey: ["write", wr_id],
     queryFn: getWrite,
     retry: (failureCount, error) => {
-      const typedError = error as unknown as IErrorGetWrite;
-      if (typedError.status === 403) {
-        alert(typedError.data.detail);
+      if (error instanceof AxiosError) {
+        alert(error.response?.data.detail);
         window.history.back();
       }
       return failureCount < 3;
