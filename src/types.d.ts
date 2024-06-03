@@ -121,3 +121,13 @@ export interface IRootState {
 export interface IGetMe {
   queryKey: [string, string];
 }
+
+
+interface IErrorGetWrite {
+  config: object;
+  data: { detail: string };
+  headers: object;
+  request: object;
+  status: number;
+  statusText: string;
+}

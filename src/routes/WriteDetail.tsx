@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
 import { getWrite } from "../api";
-import { IHtmlContent, IWrite } from "../types";
+import { IErrorGetWrite, IHtmlContent, IWrite } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
   Avatar, HStack, Text, VStack, Container, Button
@@ -17,7 +17,15 @@ export default function WriteDetail() {
   const { wr_id } = useParams();
   const { isLoading, data } = useQuery<IWrite>({
     queryKey: ["write", wr_id],
-    queryFn: getWrite
+    queryFn: getWrite,
+    retry: (failureCount, error) => {
+      const typedError = error as unknown as IErrorGetWrite;
+      if (typedError.status === 403) {
+        alert(typedError.data.detail);
+        window.history.back();
+      }
+      return failureCount < 3;
+    },
   });
   return (
     <Box

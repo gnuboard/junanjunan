@@ -13,7 +13,9 @@ export const getWrites = async () =>
 
 export const getWrite = async ({ queryKey }: QueryFunctionContext) =>{
   const [_, wr_id] = queryKey;
-  return axiosInstance.get(`/boards/free/writes/${wr_id}`).then(res => res.data);
+  return axiosInstance.get(`/boards/free/writes/${wr_id}`)
+  .then(res => res.data)
+  .catch(error => {throw error.response;});
 }
 
 
