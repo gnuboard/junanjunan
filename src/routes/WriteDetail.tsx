@@ -1,13 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "react-router-dom";
-import { getWrite } from "../api";
-import { IHtmlContent, IWrite } from "../types";
+import { IHtmlContent } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
   Avatar, HStack, Text, VStack, Container, Button
 } from "@chakra-ui/react";
 import { get_img_url } from "../lib/files";
-import { getWriteRetryCallback } from "../lib/useQueryCallback";
+import { useQueryGetWrite } from "../lib/useQuery/hooks";
 
 
 const HtmlContent = ({ html }: IHtmlContent) =>
@@ -16,11 +14,7 @@ const HtmlContent = ({ html }: IHtmlContent) =>
 
 export default function WriteDetail() {
   const { wr_id } = useParams();
-  const { isLoading, data } = useQuery<IWrite>({
-    queryKey: ["write", wr_id],
-    queryFn: getWrite,
-    retry: (failureCount, error) => getWriteRetryCallback(failureCount, error),
-  });
+  const { isLoading, data } = useQueryGetWrite(Number(wr_id));
   return (
     <Box
       mt={10}
