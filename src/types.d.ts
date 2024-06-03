@@ -94,8 +94,8 @@ export interface IUsernmaeLoginVariables {
 
 
 export interface IAuthTokenState {
-  access_token: string;
-  refresh_token: string;
+  access_token: string | null;
+  refresh_token: string | null;
 }
 
 
@@ -119,7 +119,7 @@ export interface IRootState {
 
 
 export interface IGetMe {
-  queryKey: [string, string];
+  queryKey: [string, string | null];
 }
 
 

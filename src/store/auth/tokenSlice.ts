@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAuthTokenState } from '../../types';
 
 const initialState: IAuthTokenState = {
-  access_token: "",
-  refresh_token: "",
+  access_token: null,
+  refresh_token: null,
 };
 
 export const tokenSlice = createSlice({
