@@ -7,7 +7,7 @@ import {
   Avatar, HStack, Text, VStack, Container, Button
 } from "@chakra-ui/react";
 import { get_img_url } from "../lib/files";
-import { AxiosError } from "axios";
+import { getWriteRetryCallback } from "../lib/useQueryCallback";
 
 
 const HtmlContent = ({ html }: IHtmlContent) =>
@@ -19,13 +19,7 @@ export default function WriteDetail() {
   const { isLoading, data } = useQuery<IWrite>({
     queryKey: ["write", wr_id],
     queryFn: getWrite,
-    retry: (failureCount, error) => {
-      if (error instanceof AxiosError) {
-        alert(error.response?.data.detail);
-        window.history.back();
-      }
-      return failureCount < 3;
-    },
+    retry: (failureCount, error) => getWriteRetryCallback(failureCount, error),
   });
   return (
     <Box
