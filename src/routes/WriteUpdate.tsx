@@ -5,19 +5,14 @@ import {
   Container, FormControl, FormLabel, Input, InputGroup,
   InputLeftAddon, Text, Textarea, VStack
  } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
-import { IWrite } from "../types";
-import { getWrite } from "../api";
+import { useQueryGetWrite } from "../lib/useQuery/hooks";
 
 
 export default function WriteUpdate() {
   const loginUserMbID = useSelector((state: any) => state.loginUser).mb_id;
   const navigate = useNavigate();
   const { wr_id } = useParams();
-  const { isLoading, data } = useQuery<IWrite>({
-    queryKey: ["write", wr_id],
-    queryFn: getWrite
-  });
+  const { isLoading, data } = useQueryGetWrite(Number(wr_id));
   const wrMbId = data ? data.mb_id : "";
 
   if (isLoading) {
