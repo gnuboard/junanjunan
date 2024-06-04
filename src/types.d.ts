@@ -131,3 +131,28 @@ interface IErrorGetWrite {
   status: number;
   statusText: string;
 }
+
+interface IWriteForm {
+  wr_subject: string;
+  wr_content: string;
+  wr_name: string;
+  wr_password: string;
+  wr_email: string;
+  wr_homepage: string;
+  wr_link1: string;
+  wr_link2: string;
+  wr_option: string;
+  html: string;
+  mail: string;
+  secret: string;
+  ca_name: string;
+  notice: boolean;
+  parent_id: number | null;
+}
+
+
+export interface IRequestWriteUpdate {
+  access_token: string;
+  wr_id: number;
+  variables: IWriteForm;
+}
