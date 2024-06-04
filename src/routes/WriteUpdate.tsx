@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { IRequestWriteUpdate, IRootState } from "../types";
 import { updateWrite } from "../api";
+import { useState } from "react";
 
 
 export default function WriteUpdate() {
@@ -25,6 +26,11 @@ export default function WriteUpdate() {
   const { wr_id } = useParams();
   const { data } = useQueryGetWrite(Number(wr_id));
   const wrMbId = data ? data.mb_id : "";
+  const [wrSubject, setWrSubject] = useState(data?.wr_subject);
+  const [wrContent, setWrContent] = useState(data?.wr_content);
+  const [wrLink1, setWrLink1] = useState(data?.wr_link1);
+  const [wrLink2, setWrLink2] = useState(data?.wr_link2);
+  
 
   if (loginUserMbID !== wrMbId) {
     navigate("/");
@@ -46,14 +52,16 @@ export default function WriteUpdate() {
            {...register("variables.wr_subject", { required: true })}
            required
            type="text"
-           value={data?.wr_subject}
+           value={wrSubject}
+           onChange={(e) => setWrSubject(e.target.value)}
           />
         </FormControl>
         <FormControl>
           <Textarea
            {...register("variables.wr_content", { required: true })}
            required
-           value={data?.wr_content}
+           value={wrContent}
+           onChange={(e) => setWrContent(e.target.value)}
           />
         </FormControl>
         <FormControl>
@@ -62,7 +70,8 @@ export default function WriteUpdate() {
             <Input
               {...register("variables.wr_link1")}
               type="text"
-              value={data?.wr_link1}
+              value={wrLink1}
+              onChange={(e) => setWrLink1(e.target.value)}
             />
           </InputGroup>
         </FormControl>
@@ -72,7 +81,8 @@ export default function WriteUpdate() {
             <Input
               {...register("variables.wr_link2")}
               type="text"
-              value={data?.wr_link2}
+              value={wrLink2}
+              onChange={(e) => setWrLink2(e.target.value)}
             />
           </InputGroup>
         </FormControl>
