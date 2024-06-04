@@ -1,11 +1,12 @@
 import { useParams, Link } from "react-router-dom";
-import { IHtmlContent } from "../types";
+import { IHtmlContent, IRootState } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
   Avatar, HStack, Text, VStack, Container, Button
 } from "@chakra-ui/react";
 import { get_img_url } from "../lib/files";
 import { useQueryGetWrite } from "../lib/useQuery/hooks";
+import { useSelector } from "react-redux";
 
 
 const HtmlContent = ({ html }: IHtmlContent) =>
@@ -13,6 +14,7 @@ const HtmlContent = ({ html }: IHtmlContent) =>
 
 
 export default function WriteDetail() {
+  const loginUser  = useSelector((state: IRootState) => state.loginUser);
   const { wr_id } = useParams();
   const { isLoading, data } = useQueryGetWrite(Number(wr_id));
   return (
@@ -39,9 +41,12 @@ export default function WriteDetail() {
             </HStack>
           </VStack>
         </HStack>
-        <Link to={`/writes/${wr_id}/update`}>
-          <Button>수정</Button>
-        </Link>
+        {
+          loginUser.mb_id === data?.mb_id &&
+          <Link to={`/writes/${wr_id}/update`}>
+            <Button>수정</Button>
+          </Link>
+        }
       </HStack>
       <Grid
         mt={8}
