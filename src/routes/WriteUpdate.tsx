@@ -12,15 +12,12 @@ export default function WriteUpdate() {
   const loginUserMbID = useSelector((state: any) => state.loginUser).mb_id;
   const navigate = useNavigate();
   const { wr_id } = useParams();
-  const { isLoading, data } = useQueryGetWrite(Number(wr_id));
+  const { data } = useQueryGetWrite(Number(wr_id));
   const wrMbId = data ? data.mb_id : "";
-
-  if (isLoading) {
-    return <Text>Loading...</Text>;
-  }
 
   if (loginUserMbID !== wrMbId) {
     navigate("/");
+    return <Text>Loading...</Text>;
   }
 
   return (
