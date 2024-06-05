@@ -4,6 +4,7 @@ import Home from "./routes/Home";
 import NotFound from "./routes/error/NotFound";
 import WriteDetail from "./routes/WriteDetail";
 import WriteUpdate from "./routes/WriteUpdate";
+import WriteCreate from "./routes/WriteCreate";
 
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />
+      },
+      {
+        path: "writes/create",
+        element: <WriteCreate />
       },
       {
         path: "writes/:wr_id",

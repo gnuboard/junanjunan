@@ -151,6 +151,11 @@ interface IWriteForm {
 }
 
 
+export interface IRequestWriteCreate {
+  access_token: string;
+  variables: IWriteForm;
+}
+
 export interface IRequestWriteUpdate {
   access_token: string;
   wr_id: string;
