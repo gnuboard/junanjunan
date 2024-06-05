@@ -2,7 +2,8 @@ import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
 import {
   IUsernmaeLoginVariables, IGetMe, IRequestWriteUpdate,
-  IRequestWriteCreate
+  IRequestWriteCreate,
+  IRequestWriteDelete
 } from "./types";
 
 const axiosInstance = axios.create({
@@ -72,6 +73,19 @@ export const updateWrite = async ({access_token, wr_id, variables}: IRequestWrit
   return axiosInstance.put(
     `/boards/free/writes/${wr_id}`,
     variables,
+    headers,
+  )
+  .then(res => res.data)
+  .catch(error => {
+    throw error;
+  });
+}
+
+
+export const deleteWrite = async ({access_token, wr_id}: IRequestWriteDelete) =>{
+  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+  return axiosInstance.delete(
+    `/boards/free/writes/${wr_id}`,
     headers,
   )
   .then(res => res.data)

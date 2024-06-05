@@ -1,12 +1,14 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { IHtmlContent, IRootState } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
   Avatar, HStack, Text, VStack, Container, Button
 } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
 import { get_img_url } from "../lib/files";
 import { useQueryGetWrite } from "../lib/useQuery/hooks";
 import { useSelector } from "react-redux";
+import { deleteWrite } from "../api";
 
 
 const HtmlContent = ({ html }: IHtmlContent) =>
@@ -15,8 +17,21 @@ const HtmlContent = ({ html }: IHtmlContent) =>
 
 export default function WriteDetail() {
   const loginUser  = useSelector((state: IRootState) => state.loginUser);
+  const access_token = useSelector((state: IRootState) => state.token.access_token);
+  const navigate = useNavigate();
   const { wr_id } = useParams();
   const { isLoading, data } = useQueryGetWrite(Number(wr_id));
+
+  const mutation = useMutation({
+    mutationFn: deleteWrite,
+    onSuccess: () => {alert("삭제 되었습니다."); navigate("/")},
+    onError: () => {},
+  });
+
+  const onSubmit = () => {
+    mutation.mutate({access_token, wr_id});
+  }
+
   return (
     <Box
       mt={10}
@@ -43,9 +58,12 @@ export default function WriteDetail() {
         </HStack>
         {
           loginUser.mb_id === data?.mb_id &&
-          <Link to={`/writes/${wr_id}/update`}>
-            <Button>수정</Button>
-          </Link>
+          <Box>
+            <Link to={`/writes/${wr_id}/update`}>
+              <Button margin={"3px"}>수정</Button>
+            </Link>
+            <Button onClick={onSubmit} margin={"3px"}>삭제</Button>
+          </Box>
         }
       </HStack>
       <Grid

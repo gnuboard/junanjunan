@@ -161,3 +161,9 @@ export interface IRequestWriteUpdate {
   wr_id: string;
   variables: IWriteForm;
 }
+
+
+export interface IRequestWriteDelete {
+  access_token: string | null;
+  wr_id: string | undefined;
+}
