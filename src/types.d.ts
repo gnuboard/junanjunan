@@ -178,9 +178,7 @@ export interface IFormData {
 
 export interface IStep {
   id: number;
-  placeholder: string;
-  icon: JSX.Element;
-  field: keyof IFormData;
+  content: JSX.Element;
 }
 
 
