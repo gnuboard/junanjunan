@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Box,
-  Button,
-  HStack,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  VStack,
+  Box, Button, HStack, Input, InputGroup, InputLeftElement, Modal, VStack,
+  ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay,
 } from "@chakra-ui/react";
 import { FaUserNinja, FaLock, FaEnvelope, FaUserSecret } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
