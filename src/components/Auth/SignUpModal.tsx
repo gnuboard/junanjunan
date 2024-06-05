@@ -7,13 +7,15 @@ import {
 import { FaUserNinja, FaLock, FaEnvelope, FaUserSecret } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
 import SocialLogin from "./SocialLogin";
-import { ISignUpModalProps, IStep } from "../../types";
+import { ISignUpForm, ISignUpModalProps, IStep } from "../../types";
 import Agreement from './SignUp/Agreement';
+import { useForm } from 'react-hook-form';
 
 
 export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isChecked, setIsChecked] = useState(false);
+  const { register } = useForm<ISignUpForm>();
 
   const steps: IStep[] = [
     {
@@ -38,7 +40,11 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                   </Box>
                 }
               />
-              <Input variant={"filled"} placeholder="아이디(필수)" />
+              <Input
+                {...register("mb_id", {required: "아이디는 필수 입니다."})}
+                variant={"filled"}
+                placeholder="아이디(필수)" 
+              />
             </InputGroup>
             <InputGroup>
               <InputLeftElement
@@ -48,7 +54,11 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                   </Box>
                 }
               />
-              <Input variant={"filled"} placeholder="비밀번호(필수)" />
+              <Input
+                {...register("mb_password", {required: "비밀번호는 필수 입니다."})}
+                variant={"filled"}
+                placeholder="비밀번호(필수)"
+              />
             </InputGroup>
             <InputGroup>
               <InputLeftElement
@@ -58,7 +68,11 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                   </Box>
                 }
               />
-              <Input variant={"filled"} placeholder="비밀번호 확인(필수)" />
+              <Input
+                {...register("mb_password_re", {required: "비밀번호 확인은 필수 입니다."})}
+                variant={"filled"}
+                placeholder="비밀번호 확인(필수)"
+              />
             </InputGroup>
             <Heading size={"sm"} marginTop={"10px"}>개인정보 입력</Heading>
             <InputGroup>
@@ -69,7 +83,11 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                   </Box>
                 }
               />
-              <Input variant={"filled"} placeholder="이름 (필수)" />
+              <Input
+                {...register("mb_name", {required: "이름은 필수 입니다."})}
+                variant={"filled"}
+                placeholder="이름 (필수)"
+              />
             </InputGroup>
             <InputGroup>
               <InputLeftElement
@@ -79,7 +97,11 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                   </Box>
                 }
               />
-              <Input variant={"filled"} placeholder="닉네임 (필수)" />
+              <Input
+                {...register("mb_nick", {required: "닉네임 필수 입니다."})}
+                variant={"filled"}
+                placeholder="닉네임 (필수)"
+              />
             </InputGroup>
             <InputGroup>
               <InputLeftElement
@@ -89,7 +111,11 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                   </Box>
                 }
               />
-              <Input variant={"filled"} placeholder="E-mail (필수)" />
+              <Input
+                {...register("mb_email", {required: "E-mail은 필수 입니다."})}
+                variant={"filled"}
+                placeholder="E-mail (필수)"
+              />
             </InputGroup>
           </VStack>
       )

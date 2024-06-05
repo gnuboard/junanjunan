@@ -86,6 +86,15 @@ export interface ILoginForm {
   password: string;
 }
 
+export interface ISignUpForm {
+  mb_id: string;
+  mb_password: string;
+  mb_password_re: string;
+  mb_name: string;
+  mb_nick: string;
+  mb_email: string;
+}
+
 
 export interface IUsernmaeLoginVariables {
   username: string;
