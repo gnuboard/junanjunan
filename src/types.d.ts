@@ -167,3 +167,25 @@ export interface IRequestWriteDelete {
   access_token: string | null;
   wr_id: string | undefined;
 }
+
+
+export interface IFormData {
+  name: string;
+  email: string;
+  username: string;
+}
+
+
+export interface IStep {
+  id: number;
+  placeholder: string;
+  icon: JSX.Element;
+  field: keyof IFormData;
+}
+
+
+export interface IStepContentProps {
+  step: Step;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
