@@ -1,17 +1,7 @@
 import {
-  Box,
-  Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  VStack,
-  Text,
+  Box, Button, Input, InputGroup, InputLeftElement, Modal,
+  ModalBody, ModalCloseButton, ModalContent, ModalHeader,
+  ModalOverlay, VStack, Text
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { FaUserNinja, FaLock } from "react-icons/fa";
