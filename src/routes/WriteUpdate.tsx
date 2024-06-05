@@ -56,7 +56,7 @@ export default function WriteUpdate() {
 
   const mutation = useMutation({
     mutationFn: updateWrite,
-    onSuccess: () => {},
+    onSuccess: () => {alert("저장되었습니다."); navigate(`/writes/${wr_id}`);},
     onError: () => {}
   });
   const wrMbId = data ? data.mb_id : "";
