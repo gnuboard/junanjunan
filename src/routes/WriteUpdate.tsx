@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { IRequestWriteUpdate, IRootState } from "../types";
 import { updateWrite } from "../api";
+import { useEffect } from "react";
 
 
 export default function WriteUpdate() {
@@ -17,8 +18,8 @@ export default function WriteUpdate() {
   const access_token = useSelector((state: IRootState) => state.token).access_token;
   const navigate = useNavigate();
   const { wr_id } = useParams();
-  const { data } = useQueryGetWrite(Number(wr_id));
-  const { register, handleSubmit } = useForm<IRequestWriteUpdate>({
+  const { data, refetch } = useQueryGetWrite(Number(wr_id));
+  const { register, handleSubmit, reset } = useForm<IRequestWriteUpdate>({
     defaultValues: {
       access_token: access_token ? access_token : "",
       wr_id: wr_id,
@@ -30,6 +31,29 @@ export default function WriteUpdate() {
       }
     }
   });
+
+  const handleRefresh = () => {
+    refetch().then(result => {
+      const data = result.data;
+      reset({
+        access_token: access_token ? access_token : "",
+        wr_id: wr_id,
+        variables: {
+          wr_subject: data?.wr_subject,
+          wr_content: data?.wr_content,
+          wr_link1: data?.wr_link1,
+          wr_link2: data?.wr_link2
+        }
+      });
+    });
+  }
+
+  useEffect(() => {
+    if (!data) {
+      handleRefresh();
+    }
+  }, [])
+
   const mutation = useMutation({
     mutationFn: updateWrite,
     onSuccess: () => {},
