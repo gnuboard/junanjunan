@@ -169,21 +169,13 @@ export interface IRequestWriteDelete {
 }
 
 
-export interface IFormData {
-  name: string;
-  email: string;
-  username: string;
-}
-
-
 export interface IStep {
   id: number;
   content: JSX.Element;
 }
 
 
-export interface IStepContentProps {
-  step: Step;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+interface AgreementStepProps {
+  isChecked: boolean;
+  onCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
