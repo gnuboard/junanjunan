@@ -64,7 +64,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
                 {...register("username", {required: "Username is required"})}
                 isInvalid={Boolean(errors.username)}
                 variant={"filled"}
-                placeholder="Username" 
+                placeholder="아이디" 
               />
             </InputGroup>
             <Text fontSize={"sm"} color="red.500">{errors.username?.message}</Text>
@@ -81,7 +81,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
                 isInvalid={Boolean(errors.password)}
                 type="password"
                 variant={"filled"}
-                placeholder="Password" 
+                placeholder="비밀번호" 
               />
             </InputGroup>
             <Text fontSize={"sm"} color="red.500">{errors.password?.message}</Text>
