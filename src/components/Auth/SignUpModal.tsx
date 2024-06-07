@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import {
   Box, Button, Input, InputGroup, InputLeftElement, Modal, VStack,
   ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay,
@@ -43,6 +43,14 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
     mutation.mutate(variables);
   }
 
+  type RegisterTarget = keyof ISignUpForm;
+  const handleRequiredChange = (event: ChangeEvent<HTMLInputElement>, registerTarget: RegisterTarget) => {
+    const { value } = event.target;
+    if (value) {
+      clearErrors(registerTarget);
+    }
+  }
+
   const handleInputChange = (event: any) => {
     const { value } = event.target;
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -66,6 +74,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
       content: (
         <VStack>
           <Heading size={"sm"}>사이트 이용정보 입력</Heading>
+          <FormControl isInvalid={Boolean(errors.mb_id)}>
             <InputGroup>
               <InputLeftElement
                 children={
@@ -77,9 +86,13 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
               <Input
                 {...register("mb_id", {required: "아이디는 필수 입니다."})}
                 variant={"filled"}
-                placeholder="아이디(필수)" 
+                placeholder="아이디(필수)"
+                onChange={(event) => handleRequiredChange(event, "mb_id")}
               />
             </InputGroup>
+            {errors.mb_id ? <Text color={"red.500"}>{errors.mb_id.message}</Text> : null}
+          </FormControl>
+          <FormControl isInvalid={Boolean(errors.mb_password)}>
             <InputGroup>
               <InputLeftElement
                 children={
@@ -93,8 +106,12 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                 variant={"filled"}
                 placeholder="비밀번호(필수)"
                 type="password"
+                onChange={(event) => handleRequiredChange(event, "mb_password")}
               />
             </InputGroup>
+            {errors.mb_password ? <Text color={"red.500"}>{errors.mb_password.message}</Text> : null}
+          </FormControl>
+          <FormControl isInvalid={Boolean(errors.mb_password_re)}>
             <InputGroup>
               <InputLeftElement
                 children={
@@ -108,9 +125,13 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                 variant={"filled"}
                 placeholder="비밀번호 확인(필수)"
                 type="password"
+                onChange={(event) => handleRequiredChange(event, "mb_password_re")}
               />
             </InputGroup>
+            {errors.mb_password_re ? <Text color={"red.500"}>{errors.mb_password_re.message}</Text> : null}
+          </FormControl>
             <Heading size={"sm"} marginTop={"10px"}>개인정보 입력</Heading>
+          <FormControl isInvalid={Boolean(errors.mb_name)}>
             <InputGroup>
               <InputLeftElement
                 children={
@@ -122,9 +143,14 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
               <Input
                 {...register("mb_name", {required: "이름은 필수 입니다."})}
                 variant={"filled"}
-                placeholder="이름 (필수)"
+                placeholder="이름(필수)"
+                type="mb_name"
+                onChange={(event) => handleRequiredChange(event, "mb_name")}
               />
             </InputGroup>
+            {errors.mb_name ? <Text color={"red.500"}>{errors.mb_name.message}</Text> : null}
+          </FormControl>
+          <FormControl isInvalid={Boolean(errors.mb_nick)}>
             <InputGroup>
               <InputLeftElement
                 children={
@@ -134,11 +160,15 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                 }
               />
               <Input
-                {...register("mb_nick", {required: "닉네임 필수 입니다."})}
+                {...register("mb_nick", {required: "닉네임은 필수 입니다."})}
                 variant={"filled"}
-                placeholder="닉네임 (필수)"
+                placeholder="닉네임(필수)"
+                type="mb_nick"
+                onChange={(event) => handleRequiredChange(event, "mb_nick")}
               />
             </InputGroup>
+            {errors.mb_nick ? <Text color={"red.500"}>{errors.mb_nick.message}</Text> : null}
+          </FormControl>
             <FormControl isInvalid={Boolean(errors.mb_email)}>
               <InputGroup>
                 <InputLeftElement
@@ -159,7 +189,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                   variant={"filled"}
                   placeholder="E-mail (필수)"
                   type="email"
-                  onChange={handleInputChange}
+                  onChange={(event) => {handleInputChange(event); handleRequiredChange(event, "mb_email")}}
                 />
               </InputGroup>
             </FormControl>
