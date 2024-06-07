@@ -143,7 +143,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
               {steps[currentStep - 1].content}
               <VStack mt={4}>
                 <Button colorScheme="blue" w="100%" onClick={nextStep} isDisabled={!isChecked || currentStep === steps.length}>
-                  {currentStep === steps.length ? 'Finish' : 'Next'}
+                  Next
                 </Button>
                 {currentStep > 1 && (
                   <Button colorScheme="gray" w="100%" onClick={prevStep}>
