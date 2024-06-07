@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   Box, Button, Input, InputGroup, InputLeftElement, Modal, VStack,
   ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay,
-  Heading,
+  Heading, FormControl, Text
 } from "@chakra-ui/react";
 import { FaUserNinja, FaLock, FaEnvelope, FaUserSecret } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,7 +18,9 @@ import { AxiosError } from 'axios';
 export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isChecked, setIsChecked] = useState(false);
-  const { register, handleSubmit, reset } = useForm<ISignUpForm>();
+  const {
+    register, handleSubmit, reset, formState: { errors }, clearErrors
+  } = useForm<ISignUpForm>();
 
   const mutation = useMutation({
     mutationFn: signUp,
@@ -40,6 +42,14 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
   const onSubmit = (variables: ISignUpForm) => {
     mutation.mutate(variables);
   }
+
+  const handleInputChange = (event: any) => {
+    const { value } = event.target;
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    if (emailRegex.test(value)) {
+        clearErrors('mb_email');
+    }
+  };
 
   const steps: IStep[] = [
     {
@@ -129,21 +139,31 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                 placeholder="닉네임 (필수)"
               />
             </InputGroup>
-            <InputGroup>
-              <InputLeftElement
-                children={
-                  <Box color="gray.500">
-                    <FaEnvelope />
-                  </Box>
-                }
-              />
-              <Input
-                {...register("mb_email", {required: "E-mail은 필수 입니다."})}
-                variant={"filled"}
-                placeholder="E-mail (필수)"
-                type="email"
-              />
-            </InputGroup>
+            <FormControl isInvalid={Boolean(errors.mb_email)}>
+              <InputGroup>
+                <InputLeftElement
+                  children={
+                    <Box color="gray.500">
+                      <FaEnvelope />
+                    </Box>
+                  }
+                />
+                <Input
+                  {...register("mb_email", {
+                    required: "E-mail은 필수 입니다.",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: "올바른 E-mail 형식이 아닙니다."
+                    }
+                  })}
+                  variant={"filled"}
+                  placeholder="E-mail (필수)"
+                  type="email"
+                  onChange={handleInputChange}
+                />
+              </InputGroup>
+            </FormControl>
+            {errors.mb_email ? <Text color={"red.500"}>{errors.mb_email.message}</Text> : null}
           </VStack>
       )
     }
