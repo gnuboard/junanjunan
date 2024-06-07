@@ -131,7 +131,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
       <ModalContent>
         <ModalHeader>Sign up</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody as="form">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
@@ -153,7 +153,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
               </VStack>
             </motion.div>
           </AnimatePresence>
-          <Button mt={4} colorScheme={"blue"} w="100%">
+          <Button type="submit" mt={4} colorScheme={"blue"} w="100%">
             Sign up
           </Button>
           <SocialLogin />
