@@ -70,7 +70,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
   return (
     <Modal onClose={onClose} isOpen={isOpen} size="xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent minH={"75%"}>
         <ModalHeader>Sign up</ModalHeader>
         <ModalCloseButton />
         <ModalBody as="form" onSubmit={handleSubmit(onSubmit)}>

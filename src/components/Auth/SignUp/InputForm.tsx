@@ -25,7 +25,7 @@ export default function InputForm({ register, errors, clearErrors }: IUseSignUpF
   };
 
   return (
-    <VStack>
+    <VStack minH={"350px;"}>
       <Heading size={"sm"}>사이트 이용정보 입력</Heading>
       <FormControl isInvalid={Boolean(errors.mb_id)}>
         <InputGroup>

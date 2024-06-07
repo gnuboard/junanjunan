@@ -6,7 +6,7 @@ import { AgreementStepProps } from "../../../types";
 
 export default function Agreement ({ isChecked, onCheckboxChange }: AgreementStepProps) {
   return (
-    <VStack spacing={4} align="stretch">
+    <VStack spacing={4} align="stretch" minH={"350px;"}>
       <Checkbox isChecked={isChecked} onChange={onCheckboxChange}>
         회원가입 약관에 모두 동의합니다.
       </Checkbox>
