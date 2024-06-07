@@ -44,7 +44,7 @@ export default function Home() {
           ) : null
         }
         {data?.writes.map((write) => (
-          <Box>
+          <Box key={write.wr_id}>
             <Write
               wr_id={write.wr_id}
               wr_subject={write.wr_subject}
