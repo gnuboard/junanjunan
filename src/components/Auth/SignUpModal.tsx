@@ -82,6 +82,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                 {...register("mb_password", {required: "비밀번호는 필수 입니다."})}
                 variant={"filled"}
                 placeholder="비밀번호(필수)"
+                type="password"
               />
             </InputGroup>
             <InputGroup>
@@ -96,6 +97,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                 {...register("mb_password_re", {required: "비밀번호 확인은 필수 입니다."})}
                 variant={"filled"}
                 placeholder="비밀번호 확인(필수)"
+                type="password"
               />
             </InputGroup>
             <Heading size={"sm"} marginTop={"10px"}>개인정보 입력</Heading>
@@ -139,6 +141,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
                 {...register("mb_email", {required: "E-mail은 필수 입니다."})}
                 variant={"filled"}
                 placeholder="E-mail (필수)"
+                type="email"
               />
             </InputGroup>
           </VStack>
