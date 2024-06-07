@@ -193,3 +193,10 @@ export interface AgreementStepProps {
   isChecked: boolean;
   onCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+
+interface IUseSignUpFormMethods {
+  register: UseFormRegister<ISignUpForm>;
+  errors: FieldErrors<ISignUpForm>;
+  clearErrors: UseFormClearErrors<ISignUpForm>;
+}
