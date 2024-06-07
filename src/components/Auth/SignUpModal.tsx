@@ -37,8 +37,8 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
     }
   })
 
-  const onSubmit = ({ mb_id, mb_password, mb_password_re, mb_name, mb_nick, mb_email }: ISignUpForm) => {
-    mutation.mutate({ mb_id, mb_password, mb_password_re, mb_name, mb_nick, mb_email });
+  const onSubmit = (variables: ISignUpForm) => {
+    mutation.mutate(variables);
   }
 
   const steps: IStep[] = [
