@@ -10,12 +10,36 @@ import SocialLogin from "./SocialLogin";
 import { ISignUpForm, ISignUpModalProps, IStep } from "../../types";
 import Agreement from './SignUp/Agreement';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import { signUp } from '../../api';
+import { AxiosError } from 'axios';
 
 
 export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isChecked, setIsChecked] = useState(false);
-  const { register } = useForm<ISignUpForm>();
+  const { register, handleSubmit, reset } = useForm<ISignUpForm>();
+
+  const mutation = useMutation({
+    mutationFn: signUp,
+    onSuccess: (data) => {
+      if (data.message === "회원가입이 완료되었습니다.") {
+        alert("회원가입이 완료되었습니다.");
+        onClose();
+        reset();
+      } else {
+        alert(data.message);
+      }
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError)
+      alert(error.response?.data.detail);
+    }
+  })
+
+  const onSubmit = ({ mb_id, mb_password, mb_password_re, mb_name, mb_nick, mb_email }: ISignUpForm) => {
+    mutation.mutate({ mb_id, mb_password, mb_password_re, mb_name, mb_nick, mb_email });
+  }
 
   const steps: IStep[] = [
     {
@@ -131,7 +155,7 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
       <ModalContent>
         <ModalHeader>Sign up</ModalHeader>
         <ModalCloseButton />
-        <ModalBody as="form">
+        <ModalBody as="form" onSubmit={handleSubmit(onSubmit)}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}

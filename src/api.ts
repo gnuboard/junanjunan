@@ -3,7 +3,8 @@ import axios from "axios";
 import {
   IUsernmaeLoginVariables, IGetMe, IRequestWriteUpdate,
   IRequestWriteCreate,
-  IRequestWriteDelete
+  IRequestWriteDelete,
+  ISignUpForm
 } from "./types";
 
 const axiosInstance = axios.create({
@@ -33,6 +34,18 @@ export const getMe = async ({ queryKey }: IGetMe) => {
   const [, access_token] = queryKey;
   const headers = { headers: { Authorization: `Bearer ${access_token}` } };
   return axiosInstance.get(url, headers).then(res => res.data);
+}
+
+
+export const signUp = async (variables: ISignUpForm) =>{
+  return axiosInstance.post(
+    "/members",
+    variables,
+  )
+  .then(res => res.data)
+  .catch(error => {
+    throw error;
+  });
 }
 
 
