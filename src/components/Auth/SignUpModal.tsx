@@ -84,10 +84,16 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
             >
               {steps[currentStep - 1].content}
               <VStack mt={4}>
-                <Button colorScheme="blue" w="100%" onClick={nextStep} isDisabled={!isChecked || currentStep === steps.length}>
-                  Next
-                </Button>
-                {currentStep > 1 && (
+                {currentStep === 1 ? (
+                  <Button
+                    colorScheme="gray"
+                    w="100%"
+                    onClick={nextStep}
+                    isDisabled={isChecked ? false : true}
+                  >
+                    Next
+                  </Button>
+                ) : (
                   <Button colorScheme="gray" w="100%" onClick={prevStep}>
                     Previous
                   </Button>
@@ -95,7 +101,13 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
               </VStack>
             </motion.div>
           </AnimatePresence>
-          <Button type="submit" mt={4} colorScheme={"blue"} w="100%">
+          <Button
+            type="submit"
+            mt={4}
+            colorScheme={"blue"}
+            w="100%"
+            isDisabled={currentStep === 1}
+          >
             Sign up
           </Button>
           <SocialLogin />
