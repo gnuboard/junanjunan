@@ -35,7 +35,8 @@ interface IBoard {
   bo_use_category: number;
   bo_category_list: string;
 }
-  
+
+
 export interface IWrite {
   wr_id: number;
   wr_num: number;
@@ -58,7 +59,8 @@ export interface IWrite {
   normal_files: any[];
   comments: any[];
 }
-  
+
+
 export interface IBoardData {
   categories: any[];
   board: IBoard;
@@ -85,6 +87,7 @@ export interface ILoginForm {
   username: string;
   password: string;
 }
+
 
 export interface ISignUpForm {
   mb_id: string;
@@ -141,6 +144,7 @@ interface IErrorGetWrite {
   statusText: string;
 }
 
+
 interface IWriteForm {
   wr_subject: string;
   wr_content: string;
@@ -165,6 +169,7 @@ export interface IRequestWriteCreate {
   variables: IWriteForm;
 }
 
+
 export interface IRequestWriteUpdate {
   access_token: string;
   wr_id: string;
@@ -184,7 +189,7 @@ export interface IStep {
 }
 
 
-interface AgreementStepProps {
+export interface AgreementStepProps {
   isChecked: boolean;
   onCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

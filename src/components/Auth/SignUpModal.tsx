@@ -130,7 +130,8 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
             </InputGroup>
             {errors.mb_password_re ? <Text color={"red.500"}>{errors.mb_password_re.message}</Text> : null}
           </FormControl>
-            <Heading size={"sm"} marginTop={"10px"}>개인정보 입력</Heading>
+
+          <Heading size={"sm"} marginTop={"10px"}>개인정보 입력</Heading>
           <FormControl isInvalid={Boolean(errors.mb_name)}>
             <InputGroup>
               <InputLeftElement
@@ -169,32 +170,32 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
             </InputGroup>
             {errors.mb_nick ? <Text color={"red.500"}>{errors.mb_nick.message}</Text> : null}
           </FormControl>
-            <FormControl isInvalid={Boolean(errors.mb_email)}>
-              <InputGroup>
-                <InputLeftElement
-                  children={
-                    <Box color="gray.500">
-                      <FaEnvelope />
-                    </Box>
+          <FormControl isInvalid={Boolean(errors.mb_email)}>
+            <InputGroup>
+              <InputLeftElement
+                children={
+                  <Box color="gray.500">
+                    <FaEnvelope />
+                  </Box>
+                }
+              />
+              <Input
+                {...register("mb_email", {
+                  required: "E-mail은 필수 입니다.",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "올바른 E-mail 형식이 아닙니다."
                   }
-                />
-                <Input
-                  {...register("mb_email", {
-                    required: "E-mail은 필수 입니다.",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: "올바른 E-mail 형식이 아닙니다."
-                    }
-                  })}
-                  variant={"filled"}
-                  placeholder="E-mail (필수)"
-                  type="email"
-                  onChange={(event) => {handleInputChange(event); handleRequiredChange(event, "mb_email")}}
-                />
-              </InputGroup>
-            </FormControl>
+                })}
+                variant={"filled"}
+                placeholder="E-mail (필수)"
+                type="email"
+                onChange={(event) => {handleInputChange(event); handleRequiredChange(event, "mb_email")}}
+              />
+            </InputGroup>
             {errors.mb_email ? <Text color={"red.500"}>{errors.mb_email.message}</Text> : null}
-          </VStack>
+          </FormControl>
+        </VStack>
       )
     }
   ];
