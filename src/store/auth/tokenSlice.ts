@@ -4,6 +4,8 @@ import { IAuthTokenState } from '../../types';
 const initialState: IAuthTokenState = {
   access_token: null,
   refresh_token: null,
+  access_token_expire_at: null,
+  refresh_token_expire_at: null,
 };
 
 export const tokenSlice = createSlice({

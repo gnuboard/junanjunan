@@ -108,6 +108,8 @@ export interface IUsernmaeLoginVariables {
 export interface IAuthTokenState {
   access_token: string | null;
   refresh_token: string | null;
+  access_token_expire_at: string | null,
+  refresh_token_expire_at: string | null,
 }
 
 
