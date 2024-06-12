@@ -16,7 +16,6 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
     <ReduxProvider store={store}>
       <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
         <QueryClientProvider client={client}>
@@ -27,5 +26,4 @@ root.render(
         </QueryClientProvider>
       </PersistGate>
     </ReduxProvider>
-  </React.StrictMode>
 );
