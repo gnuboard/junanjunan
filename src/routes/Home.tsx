@@ -12,10 +12,7 @@ export default function Home() {
     queryFn: getWrites,
   });
 
-  if (data === undefined) {
-    throw new Error("data is undefined");
-  }
-  const free_writes = data.free;
+  const free_writes = data?.free;
   return (
     <>
       <HStack justifyContent={"flex-end"} paddingX={"10%"} paddingTop={"10px"}>
@@ -48,7 +45,7 @@ export default function Home() {
           ) : null
         }
         {
-          free_writes.map((write) => (
+          free_writes?.map((write) => (
             <Box key={write.wr_id}>
               <Write
                 wr_id={write.wr_id}
