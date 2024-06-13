@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 
 
 export const getWrites = async () =>
-  axiosInstance.get("/boards/free/writes").then(res => res.data);
+  axiosInstance.get("/board-new/writes").then(res => res.data);
 
 
 export const getWrite = async ({ queryKey }: QueryFunctionContext) =>{

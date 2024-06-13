@@ -2,16 +2,20 @@ import { Grid, Box, Skeleton, SkeletonText, Button, HStack } from "@chakra-ui/re
 import Write from "../components/Write";
 import { useQuery } from "@tanstack/react-query";
 import { getWrites } from "../api";
-import { IBoardData } from "../types";
+import { INewWrites } from "../types";
 import { Link } from "react-router-dom";
 
 
 export default function Home() {
-  const { isLoading, data } = useQuery<IBoardData>({
+  const { isLoading, data } = useQuery<INewWrites>({
     queryKey: ["writes"],
     queryFn: getWrites,
   });
 
+  if (data === undefined) {
+    throw new Error("data is undefined");
+  }
+  const free_writes = data.free;
   return (
     <>
       <HStack justifyContent={"flex-end"} paddingX={"10%"} paddingTop={"10px"}>
@@ -43,22 +47,24 @@ export default function Home() {
             </Box>
           ) : null
         }
-        {data?.writes.map((write) => (
-          <Box key={write.wr_id}>
-            <Write
-              wr_id={write.wr_id}
-              wr_subject={write.wr_subject}
-              wr_name={write.wr_name}
-              wr_comment={write.wr_comment}
-              wr_hit={write.wr_hit}
-              img={
-                write.images[0]
-                ? "http://127.0.0.1:8000/"+ write.images[0].bf_file
-                : `${process.env.PUBLIC_URL}/no_img.png`
-              } 
-            />
-          </Box>
-        ))}
+        {
+          free_writes.map((write) => (
+            <Box key={write.wr_id}>
+              <Write
+                wr_id={write.wr_id}
+                wr_subject={write.wr_subject}
+                wr_name={write.wr_name}
+                wr_comment={write.wr_comment}
+                wr_hit={write.wr_hit}
+                img={
+                  write.images[0]
+                  ? "http://127.0.0.1:8000/"+ write.images[0].bf_file
+                  : `${process.env.PUBLIC_URL}/no_img.png`
+                } 
+              />
+            </Box>
+          ))
+        }
       </Grid>
     </>
   );

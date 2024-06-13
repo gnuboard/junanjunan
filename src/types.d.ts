@@ -68,6 +68,14 @@ export interface IBoardData {
 }
 
 
+export interface INewWrites {
+  free: IWrite[];
+  gallery: IWrite[];
+  notice: IWrite[];
+  qa: IWrite[];
+}
+
+
 export interface IWriteProps {
   wr_id: number;
   wr_subject: string;
