@@ -63,7 +63,7 @@ export function useVerifiedToken() {
 }
 
 
-export function useQueryGetWrite(wr_id: number) {
+export function useQueryGetWrite(wr_id: string) {
   const {accessToken, refreshToken} = useVerifiedToken();
   const { isLoading, data, refetch } = useQuery<IWrite>({
     queryKey: ["write", wr_id, accessToken, refreshToken],

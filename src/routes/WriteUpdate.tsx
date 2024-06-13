@@ -18,7 +18,10 @@ export default function WriteUpdate() {
   const access_token = useSelector((state: IRootState) => state.token).access_token;
   const navigate = useNavigate();
   const { wr_id } = useParams();
-  const { data, refetch } = useQueryGetWrite(Number(wr_id));
+  if (!wr_id) {
+    throw new Error("wr_id 가 필요합니다.");
+  }
+  const { data, refetch } = useQueryGetWrite(wr_id);
   const { register, handleSubmit, reset } = useForm<IRequestWriteUpdate>({
     defaultValues: {
       access_token: access_token ? access_token : "",

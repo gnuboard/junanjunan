@@ -20,7 +20,10 @@ export default function WriteDetail() {
   const access_token = useSelector((state: IRootState) => state.token.access_token);
   const navigate = useNavigate();
   const { wr_id } = useParams();
-  const { isLoading, data } = useQueryGetWrite(Number(wr_id));
+  if (!wr_id) {
+    throw new Error("wr_id 가 필요합니다.");
+  }
+  const { isLoading, data } = useQueryGetWrite(wr_id);
 
   const mutation = useMutation({
     mutationFn: deleteWrite,
