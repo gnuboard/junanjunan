@@ -65,18 +65,18 @@ export function useVerifiedToken() {
 
 
 export function useGetWritesParams() {
-  const { wr_id } = useParams<{ wr_id: string }>();
-  if (!wr_id) {
-    throw new Error("wr_id가 필요합니다.");
+  const { bo_table, wr_id } = useParams<{ bo_table: string, wr_id: string}>();
+  if (!bo_table || !wr_id) {
+    throw new Error("bo_table, wr_id가 필요합니다.");
   }
-  return { wr_id };
+  return { bo_table, wr_id };
 }
 
 
-export function useQueryGetWrite(wr_id: string) {
+export function useQueryGetWrite(bo_table: string, wr_id: string) {
   const {accessToken, refreshToken} = useVerifiedToken();
   const { isLoading, data, refetch } = useQuery<IWrite>({
-    queryKey: ["write", wr_id, accessToken, refreshToken],
+    queryKey: ["write", bo_table, wr_id, accessToken, refreshToken],
     queryFn: getWrite,
     retry: (failureCount, error) => getWriteRetryCallback(failureCount, error),
   });

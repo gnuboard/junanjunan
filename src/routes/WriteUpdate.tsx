@@ -17,8 +17,8 @@ export default function WriteUpdate() {
   const loginUserMbID = useSelector((state: any) => state.loginUser).mb_id;
   const access_token = useSelector((state: IRootState) => state.token).access_token;
   const navigate = useNavigate();
-  const { wr_id } = useGetWritesParams();
-  const { data, refetch } = useQueryGetWrite(wr_id);
+  const { bo_table, wr_id } = useGetWritesParams();
+  const { data, refetch } = useQueryGetWrite(bo_table, wr_id);
   const { register, handleSubmit, reset } = useForm<IRequestWriteUpdate>({
     defaultValues: {
       access_token: access_token ? access_token : "",

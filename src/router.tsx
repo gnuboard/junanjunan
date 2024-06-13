@@ -22,11 +22,11 @@ const router = createBrowserRouter([
         element: <WriteCreate />
       },
       {
-        path: "writes/:wr_id",
+        path: "writes/:bo_table/:wr_id",
         element: <WriteDetail />
       },
       {
-        path: "writes/:wr_id/update",
+        path: "writes/:bo_table/:wr_id/update",
         element: <WriteUpdate />
       },
     ]

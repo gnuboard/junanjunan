@@ -19,8 +19,8 @@ export default function WriteDetail() {
   const loginUser  = useSelector((state: IRootState) => state.loginUser);
   const access_token = useSelector((state: IRootState) => state.token.access_token);
   const navigate = useNavigate();
-  const { wr_id } = useGetWritesParams();
-  const { isLoading, data } = useQueryGetWrite(wr_id);
+  const { bo_table, wr_id } = useGetWritesParams();
+  const { isLoading, data } = useQueryGetWrite(bo_table, wr_id);
 
   const mutation = useMutation({
     mutationFn: deleteWrite,
@@ -59,7 +59,7 @@ export default function WriteDetail() {
         {
           loginUser.mb_id === data?.mb_id &&
           <Box>
-            <Link to={`/writes/${wr_id}/update`}>
+            <Link to={`/writes/${bo_table}/${wr_id}/update`}>
               <Button margin={"3px"}>수정</Button>
             </Link>
             <Button onClick={onSubmit} margin={"3px"}>삭제</Button>

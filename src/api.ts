@@ -17,8 +17,8 @@ export const getWrites = async () =>
 
 
 export const getWrite = async ({ queryKey }: QueryFunctionContext) =>{
-  const [_, wr_id, access_token] = queryKey;
-  const url = `/boards/free/writes/${wr_id}`;
+  const [_, bo_table, wr_id, access_token] = queryKey;
+  const url = `/boards/${bo_table}/writes/${wr_id}`;
   let headers = {};
   if (access_token) {
     headers = { headers: { Authorization: `Bearer ${access_token}` } };
