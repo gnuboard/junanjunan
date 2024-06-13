@@ -67,6 +67,23 @@ export const usernameLogIn = async ({username, password}: IUsernmaeLoginVariable
 }
 
 
+export const refreshAccessToken = async (refreshToken: string) =>{
+  const params = new URLSearchParams();
+  params.append("refresh_token", refreshToken);
+
+  return axiosInstance.post(
+    "/token/refresh",
+    params,
+    { headers: {"Content-Type": "application/x-www-form-urlencoded"} }
+  )
+  .then(res => res.data)
+  .catch(error => {
+    console.error(error);
+    throw error;
+  });
+}
+
+
 export const createWrite = async ({access_token, variables}: IRequestWriteCreate) =>{
   const headers = { headers: { Authorization: `Bearer ${access_token}` } };
   return axiosInstance.post(
