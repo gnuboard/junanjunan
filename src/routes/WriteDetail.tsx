@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IHtmlContent, IRootState } from "../types";
 import {
   Box, Grid, Image, GridItem, Skeleton, Heading,
@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { get_img_url } from "../lib/files";
-import { useQueryGetWrite } from "../lib/useQuery/hooks";
+import { useGetWritesParams, useQueryGetWrite } from "../lib/useQuery/hooks";
 import { useSelector } from "react-redux";
 import { deleteWrite } from "../api";
 
@@ -19,10 +19,7 @@ export default function WriteDetail() {
   const loginUser  = useSelector((state: IRootState) => state.loginUser);
   const access_token = useSelector((state: IRootState) => state.token.access_token);
   const navigate = useNavigate();
-  const { wr_id } = useParams();
-  if (!wr_id) {
-    throw new Error("wr_id 가 필요합니다.");
-  }
+  const { wr_id } = useGetWritesParams();
   const { isLoading, data } = useQueryGetWrite(wr_id);
 
   const mutation = useMutation({

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout as tokenLogout, setCredentials } from "../../store/auth/tokenSlice";
 import { logout as userLogout } from "../../store/auth/loginUserSlice";
 import { useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 
 
 export function useVerifiedToken() {
@@ -60,6 +61,15 @@ export function useVerifiedToken() {
     }
   }, []);
   return {accessToken, refreshToken};
+}
+
+
+export function useGetWritesParams() {
+  const { wr_id } = useParams<{ wr_id: string }>();
+  if (!wr_id) {
+    throw new Error("wr_id가 필요합니다.");
+  }
+  return { wr_id };
 }
 
 

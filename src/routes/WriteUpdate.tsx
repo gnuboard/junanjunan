@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { 
   Button,
   Container, FormControl, FormLabel, Input, InputGroup,
   InputLeftAddon, Text, Textarea, VStack
  } from "@chakra-ui/react";
-import { useQueryGetWrite } from "../lib/useQuery/hooks";
+import { useGetWritesParams, useQueryGetWrite } from "../lib/useQuery/hooks";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { IRequestWriteUpdate, IRootState } from "../types";
@@ -17,10 +17,7 @@ export default function WriteUpdate() {
   const loginUserMbID = useSelector((state: any) => state.loginUser).mb_id;
   const access_token = useSelector((state: IRootState) => state.token).access_token;
   const navigate = useNavigate();
-  const { wr_id } = useParams();
-  if (!wr_id) {
-    throw new Error("wr_id 가 필요합니다.");
-  }
+  const { wr_id } = useGetWritesParams();
   const { data, refetch } = useQueryGetWrite(wr_id);
   const { register, handleSubmit, reset } = useForm<IRequestWriteUpdate>({
     defaultValues: {
