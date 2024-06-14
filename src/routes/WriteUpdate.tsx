@@ -1,58 +1,18 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { 
-  Button,
-  Container, FormControl, FormLabel, Input, InputGroup,
-  InputLeftAddon, Text, Textarea, VStack
- } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { useGetWritesParams, useQueryGetWrite } from "../lib/useQuery/hooks";
-import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { IRequestWriteUpdate, IRootState } from "../types";
+import { IRequestWriteUpdate } from "../types";
 import { updateWrite } from "../api";
-import { useEffect } from "react";
+import WriteForm from "./WriteForm";
 
 
 export default function WriteUpdate() {
   const loginUserMbID = useSelector((state: any) => state.loginUser).mb_id;
-  const access_token = useSelector((state: IRootState) => state.token).access_token;
   const navigate = useNavigate();
   const { bo_table, wr_id } = useGetWritesParams();
-  const { data, refetch } = useQueryGetWrite(bo_table, wr_id);
-  const { register, handleSubmit, reset } = useForm<IRequestWriteUpdate>({
-    defaultValues: {
-      access_token: access_token ? access_token : "",
-      wr_id: wr_id,
-      variables: {
-        wr_subject: data?.wr_subject,
-        wr_content: data?.wr_content,
-        wr_link1: data?.wr_link1,
-        wr_link2: data?.wr_link2
-      }
-    }
-  });
-
-  const handleRefresh = () => {
-    refetch().then(result => {
-      const data = result.data;
-      reset({
-        access_token: access_token ? access_token : "",
-        wr_id: wr_id,
-        variables: {
-          wr_subject: data?.wr_subject,
-          wr_content: data?.wr_content,
-          wr_link1: data?.wr_link1,
-          wr_link2: data?.wr_link2
-        }
-      });
-    });
-  }
-
-  useEffect(() => {
-    if (!data) {
-      handleRefresh();
-    }
-  }, [])
+  const { data } = useQueryGetWrite(bo_table, wr_id);
 
   const mutation = useMutation({
     mutationFn: updateWrite,
@@ -70,54 +30,5 @@ export default function WriteUpdate() {
     mutation.mutate({access_token, wr_id, variables});
   }
 
-  return (
-    <Container mt={10} px={{ base: 10, lg: 40 }}>
-      <VStack as="form" onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register("access_token")} required type="text" hidden/>
-        <Input {...register("wr_id")} required type="text" hidden/>
-        <FormControl>
-          <FormLabel>제목</FormLabel>
-          <Input
-           {...register("variables.wr_subject", { required: true })}
-           required
-           type="text"
-          />
-        </FormControl>
-        <FormControl>
-          <Textarea
-           {...register("variables.wr_content", { required: true })}
-           required
-          />
-        </FormControl>
-        <FormControl>
-          <InputGroup>
-            <InputLeftAddon children="Link1" />
-            <Input
-              {...register("variables.wr_link1")}
-              type="text"
-            />
-          </InputGroup>
-        </FormControl>
-        <FormControl>
-          <InputGroup>
-            <InputLeftAddon children="Link2" />
-            <Input
-              {...register("variables.wr_link2")}
-              type="text"
-            />
-          </InputGroup>
-        </FormControl>
-        {mutation.isError? <Text color={"red.500"}>에러 발생</Text> : null}
-        <Button
-          type="submit"
-          isLoading={mutation.isPending}
-          colorScheme={"blue"}
-          size="lg"
-          w="100%"
-        >
-          저장하기
-        </Button>
-      </VStack>
-    </Container>
-  );
+  return <WriteForm mutation={mutation} onSubmit={onSubmit} wr_id={wr_id} writeData={data}/>
 }

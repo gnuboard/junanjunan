@@ -196,6 +196,21 @@ export interface IRequestWriteUpdate {
 }
 
 
+export interface IRequestWriteForm {
+  access_token: string;
+  variables: IWriteForm;
+  wr_id: string | null;
+}
+
+
+export interface IWriteFormVariables  {
+  mutation: UseMutationResult;
+  onSubmit: any;
+  wr_id: string | null;
+  writeData: any | null;
+}
+
+
 export interface IRequestWriteDelete {
   access_token: string | null;
   wr_id: string | undefined;
