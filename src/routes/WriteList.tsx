@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query"
-import { Button, Grid, HStack, VStack } from "@chakra-ui/react";
+import { Button, Grid, HStack, Heading, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { getBoardWrites } from "../api"
 import { useGetBoTableParams } from "../lib/useQuery/hooks"
 import { IWrite } from "../types";
 import WriteBoxes from "../components/WriteBoxes";
+import { getBoardAttr } from "../lib/board";
 
 
 export default function WriteList () {
   const bo_table = useGetBoTableParams();
+  const { boardName } = getBoardAttr(bo_table);
   const { data } = useQuery({
     queryKey: ["borad_writes", bo_table],
     queryFn: getBoardWrites,
@@ -17,7 +19,8 @@ export default function WriteList () {
 
   return (
     <>
-      <HStack justifyContent={"flex-end"} paddingX={"20%"} paddingTop={"10px"}>
+      <HStack justifyContent={"space-between"} paddingX={"20%"} paddingTop={"10px"}>
+        <Heading size={"md"}>{boardName}</Heading>
         <Link to={`/writes/${bo_table}/create`}>
           <Button>글 작성</Button>
         </Link>
