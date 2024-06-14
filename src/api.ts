@@ -95,10 +95,10 @@ export const refreshAccessToken = async (refreshToken: string) =>{
 }
 
 
-export const createWrite = async ({access_token, variables}: IRequestWriteCreate) =>{
+export const createWrite = async ({access_token, bo_table, variables}: IRequestWriteCreate) =>{
   const headers = { headers: { Authorization: `Bearer ${access_token}` } };
   return axiosInstance.post(
-    "/boards/free/writes",
+    `/boards/${bo_table}/writes`,
     variables,
     headers,
   )
@@ -109,10 +109,10 @@ export const createWrite = async ({access_token, variables}: IRequestWriteCreate
 }
 
 
-export const updateWrite = async ({access_token, wr_id, variables}: IRequestWriteUpdate) =>{
+export const updateWrite = async ({access_token, bo_table, wr_id, variables}: IRequestWriteUpdate) =>{
   const headers = { headers: { Authorization: `Bearer ${access_token}` } };
   return axiosInstance.put(
-    `/boards/free/writes/${wr_id}`,
+    `/boards/${bo_table}/writes/${wr_id}`,
     variables,
     headers,
   )

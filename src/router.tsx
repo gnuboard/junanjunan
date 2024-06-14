@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: "writes/create",
+        path: "writes/:bo_table/create",
         element: <WriteCreate />
       },
       {

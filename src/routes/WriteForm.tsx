@@ -7,11 +7,12 @@ import {
 import { IRootState, IRequestWriteForm, IWriteFormVariables } from "../types";
 
 
-export default function WriteForm({mutation, onSubmit, wr_id, writeData}: IWriteFormVariables) {
+export default function WriteForm({mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {
   const access_token = useSelector((state: IRootState) => state.token).access_token;
   const { register, handleSubmit } = useForm<IRequestWriteForm>({
     defaultValues: {
       access_token: access_token ? access_token : "",
+      bo_table: bo_table,
       wr_id: wr_id,
       variables: {
         wr_subject: writeData?.wr_subject,
@@ -26,6 +27,7 @@ export default function WriteForm({mutation, onSubmit, wr_id, writeData}: IWrite
     <Container mt={10} px={{ base: 10, lg: 40 }}>
       <VStack as="form" onSubmit={handleSubmit(onSubmit)}>
         <Input {...register("access_token")} required type="text" hidden/>
+        <Input {...register("bo_table")} required type="text" hidden/>
         <Input {...register("wr_id")} type="text" hidden/>
         <FormControl>
           <FormLabel>제목</FormLabel>

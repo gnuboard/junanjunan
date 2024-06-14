@@ -165,6 +165,7 @@ interface IErrorGetWrite {
 
 
 interface IWriteForm {
+  bo_table: string;
   wr_subject: string;
   wr_content: string;
   wr_name: string;
@@ -185,12 +186,14 @@ interface IWriteForm {
 
 export interface IRequestWriteCreate {
   access_token: string;
+  bo_table: string;
   variables: IWriteForm;
 }
 
 
 export interface IRequestWriteUpdate {
   access_token: string;
+  bo_table;
   wr_id: string;
   variables: IWriteForm;
 }
@@ -199,6 +202,7 @@ export interface IRequestWriteUpdate {
 export interface IRequestWriteForm {
   access_token: string;
   variables: IWriteForm;
+  bo_table: string;
   wr_id: string | null;
 }
 
@@ -206,6 +210,7 @@ export interface IRequestWriteForm {
 export interface IWriteFormVariables  {
   mutation: UseMutationResult;
   onSubmit: any;
+  bo_table: string;
   wr_id: string | null;
   writeData: any | null;
 }
