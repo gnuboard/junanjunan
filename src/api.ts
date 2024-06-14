@@ -19,6 +19,14 @@ export const getNewWrites = async () =>
   axiosInstance.get("/board-new/writes").then(res => res.data);
 
 
+export const getBoardWrites = async ({ queryKey }: QueryFunctionContext) =>{
+  const [_, boTable] = queryKey;
+  return axiosInstance.get(`/boards/${boTable}/writes`)
+    .then(res => res.data)
+    .catch(error => {throw error;});;
+}
+
+
 export const getWrite = async ({ queryKey }: QueryFunctionContext) =>{
   const [_, bo_table, wr_id, access_token] = queryKey;
   const url = `/boards/${bo_table}/writes/${wr_id}`;

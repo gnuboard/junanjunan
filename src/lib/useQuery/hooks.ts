@@ -64,6 +64,15 @@ export function useVerifiedToken() {
 }
 
 
+export function useGetBoTableParams() {
+  const { bo_table } = useParams<{ bo_table: string }>();
+  if (!bo_table) {
+    throw new Error("bo_table이 필요합니다.");
+  }
+  return bo_table;
+}
+
+
 export function useGetWritesParams() {
   const { bo_table, wr_id } = useParams<{ bo_table: string, wr_id: string}>();
   if (!bo_table || !wr_id) {

@@ -5,6 +5,7 @@ import NotFound from "./routes/error/NotFound";
 import WriteDetail from "./routes/WriteDetail";
 import WriteUpdate from "./routes/WriteUpdate";
 import WriteCreate from "./routes/WriteCreate";
+import WriteList from "./routes/WriteList";
 
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "writes/create",
         element: <WriteCreate />
+      },
+      {
+        path: "writes/:bo_table",
+        element: <WriteList />
       },
       {
         path: "writes/:bo_table/:wr_id",

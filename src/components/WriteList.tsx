@@ -2,6 +2,7 @@ import { Box, Heading, VStack } from "@chakra-ui/react";
 import Write from "../components/Write";
 import { IWrite } from "../types";
 import { serverURL } from "../api";
+import { useNavigate } from "react-router-dom";
 
 
 function getBoardAttr(bo_table: string) {
@@ -22,11 +23,14 @@ function getBoardAttr(bo_table: string) {
 
 export default function WriteList({bo_table, writes}: {bo_table: string, writes: IWrite[] | undefined}) {
   writes = writes ? writes.slice(0, 5) : [];
+  const navigate = useNavigate();
   const {boardName, boardBackgroundColor} = getBoardAttr(bo_table);
   const boxWidth = "280px";
   return (
     <VStack width={boxWidth}>
       <Heading
+        onClick={() => navigate(`/writes/${bo_table}`)}
+        _hover={{cursor: "pointer"}}
         width={"100%"}
         height={"30px"}
         size="md"
