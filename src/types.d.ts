@@ -37,6 +37,13 @@ interface IBoard {
 }
 
 
+export interface Thumbnail {
+  src: string;
+  alt: string;
+  noimg: string;
+}
+
+
 export interface IWrite {
   wr_id: number;
   wr_num: number;
@@ -55,6 +62,7 @@ export interface IWrite {
   wr_option: string;
   mb_image_path: string;
   mb_icon_path: string;
+  thumbnail: ThumbnailModel;
   images: any[];
   normal_files: any[];
   comments: any[];

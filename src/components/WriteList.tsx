@@ -49,8 +49,8 @@ export default function WriteList({bo_table, writes}: {bo_table: string, writes:
               wr_comment={write.wr_comment}
               wr_hit={write.wr_hit}
               img={
-                write.images[0]
-                ? `${serverURL}/${write.images[0].bf_file}`
+                write.thumbnail.noimg !== "img_not_found"
+                ? `${serverURL}/${write.thumbnail.src}`
                 : `${process.env.PUBLIC_URL}/no_img.png`
               }
             />
