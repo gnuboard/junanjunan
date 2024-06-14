@@ -7,10 +7,10 @@ import { Link } from "react-router-dom";
 import { IWriteProps } from "../types";
 
 
-export default function Write({wr_id, wr_subject, wr_name, wr_comment, wr_hit, img}: IWriteProps) {
+export default function Write({bo_table, wr_id, wr_subject, wr_name, wr_comment, wr_hit, img}: IWriteProps) {
   const gray = useColorModeValue("gray.600", "gray.300");
   return (
-    <Link to={`/writes/${wr_id}`}>
+    <Link to={`/writes/${bo_table}/${wr_id}`}>
       <VStack alignItems={"flex-start"}>
         <Box position="relative" overflow={"hidden"} mb={3} rounded="2xl">
           <Image minH="280" src={img} />

@@ -1,9 +1,9 @@
 import { Grid, Box, Skeleton, SkeletonText, Button, HStack } from "@chakra-ui/react";
-import Write from "../components/Write";
 import { useQuery } from "@tanstack/react-query";
 import { getWrites } from "../api";
 import { INewWrites } from "../types";
 import { Link } from "react-router-dom";
+import WriteList from "../components/WriteList";
 
 
 export default function Home() {
@@ -12,7 +12,6 @@ export default function Home() {
     queryFn: getWrites,
   });
 
-  const free_writes = data?.free;
   return (
     <>
       <HStack justifyContent={"flex-end"} paddingX={"10%"} paddingTop={"10px"}>
@@ -44,24 +43,10 @@ export default function Home() {
             </Box>
           ) : null
         }
-        {
-          free_writes?.map((write) => (
-            <Box key={write.wr_id}>
-              <Write
-                wr_id={write.wr_id}
-                wr_subject={write.wr_subject}
-                wr_name={write.wr_name}
-                wr_comment={write.wr_comment}
-                wr_hit={write.wr_hit}
-                img={
-                  write.images[0]
-                  ? "http://127.0.0.1:8000/"+ write.images[0].bf_file
-                  : `${process.env.PUBLIC_URL}/no_img.png`
-                } 
-              />
-            </Box>
-          ))
-        }
+        <WriteList bo_table="free" writes={data?.free} />
+        <WriteList bo_table="gallery" writes={data?.gallery} />
+        <WriteList bo_table="notice" writes={data?.notice} />
+        <WriteList bo_table="qa" writes={data?.qa} />
       </Grid>
     </>
   );

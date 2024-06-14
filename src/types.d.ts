@@ -77,6 +77,7 @@ export interface INewWrites {
 
 
 export interface IWriteProps {
+  bo_table: string;
   wr_id: number;
   wr_subject: string;
   wr_name: string;
