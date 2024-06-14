@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
-import { Box, Grid } from "@chakra-ui/react";
-import { getBoardWrites, serverURL } from "../api"
+import { Grid } from "@chakra-ui/react";
+import { getBoardWrites } from "../api"
 import { useGetBoTableParams } from "../lib/useQuery/hooks"
-import Write from "../components/Write";
 import { IWrite } from "../types";
+import WriteBoxes from "../components/WriteBoxes";
 
 
 export default function WriteList () {
@@ -13,7 +13,6 @@ export default function WriteList () {
     queryFn: getBoardWrites,
   })
   const writes: IWrite[] = data && data.writes ? data.writes : [];
-  const boxWidth = "280px";
 
   return (
     <Grid
@@ -32,29 +31,7 @@ export default function WriteList () {
         "2xl": "repeat(4, 1fr)",
       }}
     >
-      {
-        writes.length > 0
-        ? writes.map((write) => (
-          <Box width={boxWidth} key={write.wr_id} borderWidth={"1px"} padding={"20px"}>
-            <Write
-              bo_table={bo_table}
-              wr_id={write.wr_id}
-              wr_subject={write.wr_subject}
-              wr_name={write.wr_name}
-              wr_comment={write.wr_comment}
-              wr_hit={write.wr_hit}
-              img={
-                write.thumbnail.noimg !== "img_not_found"
-                ? `${serverURL}/${write.thumbnail.src}`
-                : `${process.env.PUBLIC_URL}/no_img.png`
-              }
-            />
-          </Box>
-        ))
-        : <Box textAlign={"center"} width={boxWidth} padding={"20px"}>
-            글이 없습니다.
-          </Box>
-      }
+      <WriteBoxes bo_table={bo_table} writes={writes} />
     </Grid>
   )
 }
