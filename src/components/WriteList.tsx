@@ -1,6 +1,7 @@
 import { Box, Heading, VStack } from "@chakra-ui/react";
 import Write from "../components/Write";
 import { IWrite } from "../types";
+import { serverURL } from "../api";
 
 
 function getBoardAttr(bo_table: string) {
@@ -49,7 +50,7 @@ export default function WriteList({bo_table, writes}: {bo_table: string, writes:
               wr_hit={write.wr_hit}
               img={
                 write.images[0]
-                ? "http://127.0.0.1:8000/"+ write.images[0].bf_file
+                ? `${serverURL}/${write.images[0].bf_file}`
                 : `${process.env.PUBLIC_URL}/no_img.png`
               }
             />
