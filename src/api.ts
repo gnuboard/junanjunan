@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
 })
 
 
-export const getWrites = async () =>
+export const getNewWrites = async () =>
   axiosInstance.get("/board-new/writes").then(res => res.data);
 
 

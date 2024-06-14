@@ -1,6 +1,6 @@
 import { Grid, Box, Skeleton, SkeletonText, Button, HStack, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { getWrites } from "../api";
+import { getNewWrites } from "../api";
 import { INewWrites } from "../types";
 import { Link } from "react-router-dom";
 import WriteList from "../components/WriteList";
@@ -9,7 +9,7 @@ import WriteList from "../components/WriteList";
 export default function Home() {
   const { isLoading, data } = useQuery<INewWrites>({
     queryKey: ["writes"],
-    queryFn: getWrites,
+    queryFn: getNewWrites,
   });
 
   return (
