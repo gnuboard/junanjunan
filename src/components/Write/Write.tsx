@@ -4,7 +4,7 @@ import {
   Image, Text, VStack, useColorModeValue
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { IWriteProps } from "../types";
+import { IWriteProps } from "../../types";
 
 
 export default function Write({bo_table, wr_id, wr_subject, wr_name, wr_comment, wr_hit, img}: IWriteProps) {

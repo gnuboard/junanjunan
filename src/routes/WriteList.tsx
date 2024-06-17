@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getBoardWrites } from "../api"
 import { useGetBoTableParams } from "../lib/useQuery/hooks"
 import { IWrite } from "../types";
-import WriteBoxes from "../components/WriteBoxes";
+import WriteBoxes from "../components/Write/WriteBoxes";
 import { getBoardAttr } from "../lib/board";
 
 

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { IRequestWriteCreate } from "../types";
 import { createWrite } from "../api";
-import WriteForm from "./WriteForm";
+import WriteForm from "../components/Write/WriteForm";
 import { useGetBoTableParams } from "../lib/useQuery/hooks";
 
 

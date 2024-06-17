@@ -4,7 +4,7 @@ import {
   Container, FormControl, FormLabel, Input, InputGroup,
   InputLeftAddon, Text, Textarea, VStack, Button
 } from "@chakra-ui/react";
-import { IRootState, IRequestWriteForm, IWriteFormVariables } from "../types";
+import { IRootState, IRequestWriteForm, IWriteFormVariables } from "../../types";
 
 
 export default function WriteForm({mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {

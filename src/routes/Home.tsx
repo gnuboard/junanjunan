@@ -2,7 +2,7 @@ import { Grid, Box, Skeleton, SkeletonText, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { getNewWrites } from "../api";
 import { INewWrites } from "../types";
-import WriteList from "../components/WriteList";
+import WriteList from "../components/Write/WriteList";
 
 
 export default function Home() {

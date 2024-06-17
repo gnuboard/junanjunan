@@ -1,8 +1,8 @@
 import { Heading, VStack } from "@chakra-ui/react";
-import { IWrite } from "../types";
+import { IWrite } from "../../types";
 import { useNavigate } from "react-router-dom";
 import WriteBoxes from "./WriteBoxes";
-import { getBoardAttr } from "../lib/board";
+import { getBoardAttr } from "../../lib/board";
 
 
 export default function WriteList({bo_table, writes}: {bo_table: string, writes: IWrite[] | undefined}) {

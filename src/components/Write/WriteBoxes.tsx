@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
-import { IWrite } from "../types";
+import { IWrite } from "../../types";
 import Write from "./Write";
-import { serverURL } from "../api";
+import { serverURL } from "../../api";
 
 export default function WriteBoxes ({bo_table, writes}: {bo_table: string, writes: IWrite[]}) {
   const boxWidth = "280px";

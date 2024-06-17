@@ -5,7 +5,7 @@ import { useGetWritesParams, useQueryGetWrite } from "../lib/useQuery/hooks";
 import { useMutation } from "@tanstack/react-query";
 import { IRequestWriteUpdate } from "../types";
 import { updateWrite } from "../api";
-import WriteForm from "./WriteForm";
+import WriteForm from "../components/Write/WriteForm";
 
 
 export default function WriteUpdate() {
