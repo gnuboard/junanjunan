@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { get_img_url } from "../lib/files";
-import { useGetWritesParams, useQueryGetWrite } from "../lib/useQuery/hooks";
+import { useGetWritesParams, useQueryGetWrite, useVerifiedToken } from "../lib/useQuery/hooks";
 import { useSelector } from "react-redux";
 import { deleteWrite } from "../api";
 
@@ -17,7 +17,7 @@ const HtmlContent = ({ html }: IHtmlContent) =>
 
 export default function WriteDetail() {
   const loginUser  = useSelector((state: IRootState) => state.loginUser);
-  const access_token = useSelector((state: IRootState) => state.token.access_token);
+  const access_token = useVerifiedToken().accessToken;
   const navigate = useNavigate();
   const { bo_table, wr_id } = useGetWritesParams();
   const { isLoading, data } = useQueryGetWrite(bo_table, wr_id);

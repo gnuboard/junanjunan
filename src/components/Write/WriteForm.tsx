@@ -1,14 +1,14 @@
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { 
   Container, FormControl, FormLabel, Input, InputGroup,
   InputLeftAddon, Text, Textarea, VStack, Button
 } from "@chakra-ui/react";
-import { IRootState, IRequestWriteForm, IWriteFormVariables } from "../../types";
+import { IRequestWriteForm, IWriteFormVariables } from "../../types";
+import { useVerifiedToken } from "../../lib/useQuery/hooks";
 
 
 export default function WriteForm({mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {
-  const access_token = useSelector((state: IRootState) => state.token).access_token;
+  const access_token = useVerifiedToken().accessToken;
   const { register, handleSubmit } = useForm<IRequestWriteForm>({
     defaultValues: {
       access_token: access_token ? access_token : "",
