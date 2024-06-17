@@ -29,10 +29,6 @@ export default function Write({bo_table, wr_id, wr_subject, wr_name, wr_comment,
             <Text display={"block"} as="b" noOfLines={1} fontSize="md">
               {wr_subject}
             </Text>
-            <HStack _hover={{color: "red.100"}} spacing={1} alignItems="center">
-              <FaStar size={12} />
-              <Text fontSize={"sm"}>5.0</Text>
-            </HStack>
           </Grid>
           <Text fontSize={"sm"} color={gray}>
             {wr_name}
