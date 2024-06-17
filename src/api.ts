@@ -8,7 +8,8 @@ import {
 } from "./types";
 
 
-export const serverURL = "http://127.0.0.1:8000";
+// export const serverURL = "http://127.0.0.1:8000";
+export const serverURL = "https://g6.demo.sir.kr";
 
 const axiosInstance = axios.create({
   baseURL: `${serverURL}/api/v1`
