@@ -5,6 +5,7 @@ import {
 } from "@chakra-ui/react";
 import { IRequestWriteForm, IWriteFormVariables } from "../../types";
 import { useVerifiedToken } from "../../lib/useQuery/hooks";
+import FileUpload from "../../lib/files";
 
 
 export default function WriteForm({mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {
@@ -61,6 +62,8 @@ export default function WriteForm({mutation, onSubmit, bo_table, wr_id, writeDat
             />
           </InputGroup>
         </FormControl>
+        <FileUpload />
+        <FileUpload />
         {mutation.isError? <Text color={"red.500"}>에러 발생</Text> : null}
         <Button
           type="submit"
