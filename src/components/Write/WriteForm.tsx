@@ -6,10 +6,12 @@ import {
 import { IRequestWriteForm, IWriteFormVariables } from "../../types";
 import { useVerifiedToken } from "../../lib/useQuery/hooks";
 import FileUpload from "../../lib/files";
+import { useRequireLogin } from "../../lib/hooks";
 
 
 export default function WriteForm({mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {
   const access_token = useVerifiedToken().accessToken;
+  useRequireLogin(access_token);
   const { register, handleSubmit } = useForm<IRequestWriteForm>({
     defaultValues: {
       access_token: access_token ? access_token : "",
