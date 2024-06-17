@@ -1,3 +1,39 @@
+<h2>프로젝트 실행 방법(Windows)</h2>
+
+<h3>1. Install node</h3>
+
+https://nodejs.org/en
+  -> LTS 버전 설치
+
+node, npm 설치 확인
+```
+node -v
+npm -v
+```
+
+<h3>2. Clone repository</h3>
+
+```
+git clone https://github.com/Junanjunan/g6_react.git
+```
+
+<h3>3. 클론 받은 repository 경로로 이동</h3>
+
+<h3>4. Dependency 설치</h3>
+
+```
+npm install
+```
+
+<h3>5. react 실행</h3>
+
+API 서버 (default: http://127.0.0.1:8000)가 실행중이어야 합니다.
+```
+npm start
+```
+
+---------------------------------------------------------------------------------------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
