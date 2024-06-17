@@ -33,8 +33,14 @@ export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {
       }
     },
     onError: (error) => {
-      if (error instanceof AxiosError)
-      alert(error.response?.data.detail);
+      if (error instanceof AxiosError) {
+        const errorDetail = error.response?.data.detail;
+        if (Array.isArray(errorDetail)) {
+          alert(errorDetail[0].msg);
+        } else {
+          alert(errorDetail);
+        }
+      }
     }
   })
 
