@@ -208,7 +208,7 @@ export interface IRequestWriteForm {
 
 
 export interface IWriteFormVariables  {
-  setDataContainer: React.Dispatch<React.SetStateAction<object>>;
+  setDataContainer: React.Dispatch<React.SetStateAction<IFiles>>;
   mutation: UseMutationResult;
   onSubmit: any;
   bo_table: string;
@@ -227,7 +227,7 @@ export interface IUploadFiles {
   access_token: string | null;
   bo_table: string;
   wr_id: string;
-  files: object;
+  files: IFiles;
 }
 
 
