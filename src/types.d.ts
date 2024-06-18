@@ -208,11 +208,18 @@ export interface IRequestWriteForm {
 
 
 export interface IWriteFormVariables  {
+  setDataContainer: React.Dispatch<React.SetStateAction<object>>;
   mutation: UseMutationResult;
   onSubmit: any;
   bo_table: string;
   wr_id: string | null;
   writeData: any | null;
+}
+
+
+export interface IFiles {
+  file1: File | null;
+  file2: File | null;
 }
 
 

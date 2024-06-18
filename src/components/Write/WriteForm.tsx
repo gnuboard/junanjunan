@@ -1,17 +1,21 @@
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { 
   Container, FormControl, FormLabel, Input, InputGroup,
   InputLeftAddon, Text, Textarea, VStack, Button
 } from "@chakra-ui/react";
-import { IRequestWriteForm, IWriteFormVariables } from "../../types";
+import { IFiles, IRequestWriteForm, IWriteFormVariables } from "../../types";
 import { useVerifiedToken } from "../../lib/useQuery/hooks";
 import FileUpload from "../../lib/files";
 import { useRequireLogin } from "../../lib/hooks";
 
 
-export default function WriteForm({mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {
+export default function WriteForm({setDataContainer, mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {
   const access_token = useVerifiedToken().accessToken;
   useRequireLogin(access_token);
+  const fileFormMethods = useForm<IFiles>();
+  const onClick = () => {
+    setDataContainer(fileFormMethods.watch());
+  };
   const { register, handleSubmit } = useForm<IRequestWriteForm>({
     defaultValues: {
       access_token: access_token ? access_token : "",
@@ -64,11 +68,14 @@ export default function WriteForm({mutation, onSubmit, bo_table, wr_id, writeDat
             />
           </InputGroup>
         </FormControl>
-        <FileUpload />
-        <FileUpload />
+        <FormProvider {...fileFormMethods}>
+          <FileUpload name="file1" />
+          <FileUpload name="file2" />
+        </FormProvider>
         {mutation.isError? <Text color={"red.500"}>에러 발생</Text> : null}
         <Button
           type="submit"
+          onClick={onClick}
           isLoading={mutation.isPending}
           colorScheme={"blue"}
           size="lg"
