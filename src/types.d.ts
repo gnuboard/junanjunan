@@ -223,6 +223,14 @@ export interface IFiles {
 }
 
 
+export interface IUploadFiles {
+  access_token: string | null;
+  bo_table: string;
+  wr_id: string;
+  files: object;
+}
+
+
 export interface IRequestWriteDelete {
   access_token: string | null;
   wr_id: string | undefined;

@@ -4,7 +4,7 @@ import {
   IUsernmaeLoginVariables, IGetMe, IRequestWriteUpdate,
   IRequestWriteCreate,
   IRequestWriteDelete,
-  ISignUpForm
+  ISignUpForm, IUploadFiles
 } from "./types";
 
 
@@ -115,6 +115,32 @@ export const updateWrite = async ({access_token, bo_table, wr_id, variables}: IR
   return axiosInstance.put(
     `/boards/${bo_table}/writes/${wr_id}`,
     variables,
+    headers,
+  )
+  .then(res => res.data)
+  .catch(error => {
+    throw error;
+  });
+}
+
+
+export const uploadFiles = async (uploadData: IUploadFiles) =>{
+  const { access_token, bo_table, wr_id, files } = uploadData;
+  const formData = new FormData();
+  const headers = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${access_token}`
+    }
+  }
+
+  Object.entries(files).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+  return axiosInstance.post(
+    `/boards/${bo_table}/writes/${wr_id}/files`,
+    formData,
     headers,
   )
   .then(res => res.data)
