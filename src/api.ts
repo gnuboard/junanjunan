@@ -1,10 +1,8 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
 import {
-  IUsernmaeLoginVariables, IGetMe, IRequestWriteUpdate,
-  IRequestWriteCreate,
-  IRequestWriteDelete,
-  ISignUpForm, IUploadFiles
+  IUsernmaeLoginVariables, IGetMe, IRequestWriteUpdate, IRequestWriteCreate,
+  IRequestWriteDelete, ISignUpForm, IUploadFiles
 } from "./types";
 
 
