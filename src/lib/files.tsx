@@ -20,7 +20,8 @@ export default function FileUpload () {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      setSelectedFile(event.target.files[0]);
+      const file = event.target.files[0]
+      setSelectedFile(file);
     }
   };
 
