@@ -1,14 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import { IHtmlContent, IRootState } from "../types";
+import { IHtmlContent, IRequestCommentCreate, IRootState } from "../types";
 import {
-  Box, Image, Skeleton, Heading,
-  Avatar, HStack, Text, VStack, Container, Button
+  Box, Image, Skeleton, Heading, FormControl, Textarea,
+  Avatar, HStack, Text, VStack, Container, Button, Divider
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { get_img_url } from "../lib/files";
 import { useGetWritesParams, useQueryGetWrite, useVerifiedToken } from "../lib/useQuery/hooks";
 import { useSelector } from "react-redux";
-import { deleteWrite } from "../api";
+import { createComment, deleteWrite } from "../api";
+import { useForm } from "react-hook-form";
 
 
 const HtmlContent = ({ html }: IHtmlContent) =>
@@ -22,14 +23,40 @@ export default function WriteDetail() {
   const { bo_table, wr_id } = useGetWritesParams();
   const { isLoading, data } = useQueryGetWrite(bo_table, wr_id);
 
+  // 댓글
+  const { register, handleSubmit } = useForm<IRequestCommentCreate>({
+    defaultValues: {
+      access_token: access_token ? access_token : "",
+      bo_table: bo_table,
+      wr_id: wr_id,
+      variables: {
+        wr_name: loginUser.mb_id,
+        wr_content: "",
+        wr_password: "",
+        wr_option: "html1",
+        comment_id: 0,
+      }
+    }
+  });
+
   const mutation = useMutation({
     mutationFn: deleteWrite,
     onSuccess: () => {alert("삭제 되었습니다."); navigate("/")},
     onError: () => {},
   });
 
+  const commentMutation = useMutation({
+    mutationFn: createComment,
+    onSuccess: () => {alert("댓글이 등록되었습니다.");},
+    onError: (error) => {alert(error);console.log(error);},
+  })
+
   const onSubmit = () => {
     mutation.mutate({access_token, bo_table, wr_id});
+  }
+
+  const onSubmitComment = ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) => {
+    commentMutation.mutate({access_token, bo_table, wr_id, variables});
   }
 
   return (
@@ -93,6 +120,21 @@ export default function WriteDetail() {
             </VStack>
           </HStack>
         ))}
+        <Divider mt={5} />
+        <FormControl mt={5}>
+          <Textarea {...register("variables.wr_content", { required: true })} required />
+          <HStack justifyContent={"flex-end"} mt={"10px"}>
+            <Button
+              type="submit"
+              onClick={handleSubmit(onSubmitComment)}
+              isLoading={mutation.isPending}
+              colorScheme={"blue"}
+              size="md"
+            >
+              댓글등록
+            </Button>
+          </HStack>
+        </FormControl>
       </Container>
     </VStack>
   );

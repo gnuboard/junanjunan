@@ -2,7 +2,7 @@ import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
 import {
   IUsernmaeLoginVariables, IGetMe, IRequestWriteUpdate, IRequestWriteCreate,
-  IRequestWriteDelete, ISignUpForm, IUploadFiles
+  IRequestWriteDelete, ISignUpForm, IUploadFiles, IRequestCommentCreate
 } from "./types";
 
 
@@ -152,6 +152,20 @@ export const deleteWrite = async ({access_token, bo_table, wr_id}: IRequestWrite
   const headers = { headers: { Authorization: `Bearer ${access_token}` } };
   return axiosInstance.delete(
     `/boards/${bo_table}/writes/${wr_id}`,
+    headers,
+  )
+  .then(res => res.data)
+  .catch(error => {
+    throw error;
+  });
+}
+
+
+export const createComment = async ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) =>{
+  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+  return axiosInstance.post(
+    `/boards/${bo_table}/writes/${wr_id}/comments`,
+    variables,
     headers,
   )
   .then(res => res.data)

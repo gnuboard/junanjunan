@@ -238,6 +238,23 @@ export interface IRequestWriteDelete {
 }
 
 
+export interface ICommentCreate {
+  wr_content: string;
+  wr_name: string;
+  wr_password: string | null;
+  wr_option: string;
+  comment_id: int;
+}
+
+
+export interface IRequestCommentCreate {
+  access_token: string | null;
+  bo_table: string;
+  wr_id: string;
+  variables: ICommentCreate;
+}
+
+
 export interface IStep {
   id: number;
   content: JSX.Element;
