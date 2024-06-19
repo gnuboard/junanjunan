@@ -5,6 +5,7 @@ import {
   Box, Image, Skeleton, Heading, FormControl, Textarea, Checkbox,
   Avatar, HStack, Text, VStack, Container, Button, Divider
 } from "@chakra-ui/react";
+import { PiArrowBendDownRightDuotone } from "react-icons/pi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { get_img_url } from "../lib/files";
 import { useGetWritesParams, useQueryGetWrite, useVerifiedToken } from "../lib/useQuery/hooks";
@@ -114,9 +115,10 @@ export default function WriteDetail() {
       <Container mt={16} maxW="container.lg" marginX="none">
         <Heading fontSize={"large"} marginBottom={"50px"}>댓글</Heading>
         {data?.comments.map((comment, index) => (
-          <>
+          <VStack alignItems={"flex-start"} pl={comment.wr_comment_reply.length*10}>
           <Divider mb={"10px"} />
           <HStack alignItems={"flex-start"} key={index} mb={"10px"}>
+            {comment.wr_comment_reply.length > 0 && <PiArrowBendDownRightDuotone />}
             <Avatar
               name={comment.wr_name}
               src={get_img_url(comment.mb_image_path)}
@@ -131,7 +133,7 @@ export default function WriteDetail() {
               <Text>{comment.save_content}</Text>
             </VStack>
           </HStack>
-          </>
+          </VStack>
         ))}
         <Divider mt={5} />
         <FormControl mt={5}>
