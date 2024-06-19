@@ -83,7 +83,7 @@ export default function WriteDetail() {
             gridColumn={"span 4"}
           >
             <Skeleton isLoaded={!isLoading} h="100%" w="100%">
-              <Image w="100%" h="100%" objectFit={"cover"} src={get_img_url(img.bf_file)}/>
+              <Image objectFit={"cover"} src={get_img_url(img.bf_file)}/>
             </Skeleton>
           </GridItem>
         ))}
