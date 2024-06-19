@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { IHtmlContent, IRootState } from "../types";
 import {
-  Box, Grid, Image, GridItem, Skeleton, Heading,
+  Box, Image, Skeleton, Heading,
   Avatar, HStack, Text, VStack, Container, Button
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
@@ -68,50 +68,31 @@ export default function WriteDetail() {
           </Box>
         }
       </HStack>
-      <Grid
-        mt={8}
-        rounded="xl"
-        overflow={"hidden"}
-        gap={2}
-        templateRows={"1fr 1fr"}
-        templateColumns={"repeat(4, 1fr)"}
-      >
-        {data?.images.map((img, index) => (
-          <GridItem
-            colSpan={index === 0 ? 2 : 1}
-            rowSpan={index === 0 ? 2 : 1}
-            overflow={"hidden"}
-            key={img.bf_source}
-            gridColumn={"span 4"}
-          >
-            <Skeleton isLoaded={!isLoading} h="100%" w="100%">
-              <Image objectFit={"cover"} src={get_img_url(img.bf_file)}/>
-            </Skeleton>
-          </GridItem>
-        ))}
-      </Grid>
+      {data?.images.map((img) => (
+        <Skeleton key={img.bf_source} isLoaded={!isLoading} h="100%" w="100%">
+          <Image objectFit={"cover"} src={get_img_url(img.bf_file)}/>
+        </Skeleton>
+      ))}
       <HtmlContent html={data ? data.wr_content : ""} />
       <Container mt={16} maxW="container.lg" marginX="none">
         <Heading fontSize={"large"} marginBottom={"50px"}>댓글</Heading>
-        <Grid gap={10}>
-          {data?.comments.map((comment, index) => (
-            <HStack alignItems={"flex-start"} key={index}>
-              <Avatar
-                name={comment.wr_name}
-                src={get_img_url(comment.mb_image_path)}
-                size="md"
-              />
-              <VStack align={"flex-start"}>
-                <HStack>
-                  <Avatar name={data?.wr_name} size={"2xs"} src={data ? get_img_url(data.mb_icon_path) : ""} />
-                  <Heading fontSize={"md"}>{comment.wr_name}</Heading>
-                  <Text>{comment.wr_datetime}</Text>
-                </HStack>
-                <Text>{comment.save_content}</Text>
-              </VStack>
-            </HStack>
-          ))}
-        </Grid>
+        {data?.comments.map((comment, index) => (
+          <HStack alignItems={"flex-start"} key={index}>
+            <Avatar
+              name={comment.wr_name}
+              src={get_img_url(comment.mb_image_path)}
+              size="md"
+            />
+            <VStack align={"flex-start"}>
+              <HStack>
+                <Avatar name={data?.wr_name} size={"2xs"} src={data ? get_img_url(data.mb_icon_path) : ""} />
+                <Heading fontSize={"md"}>{comment.wr_name}</Heading>
+                <Text>{comment.wr_datetime}</Text>
+              </HStack>
+              <Text>{comment.save_content}</Text>
+            </VStack>
+          </HStack>
+        ))}
       </Container>
     </VStack>
   );
