@@ -5,7 +5,7 @@ import {
   Box, Image, Skeleton, Heading, FormControl, Textarea, Checkbox,
   Avatar, HStack, Text, VStack, Container, Button, Divider
 } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { get_img_url } from "../lib/files";
 import { useGetWritesParams, useQueryGetWrite, useVerifiedToken } from "../lib/useQuery/hooks";
 import { useSelector } from "react-redux";
@@ -23,6 +23,7 @@ export default function WriteDetail() {
   const navigate = useNavigate();
   const { bo_table, wr_id } = useGetWritesParams();
   const { isLoading, data } = useQueryGetWrite(bo_table, wr_id);
+  const queryClient = useQueryClient();
 
   // 댓글
   const { register, handleSubmit, watch, setValue } = useForm<IRequestCommentCreate>({
@@ -56,7 +57,7 @@ export default function WriteDetail() {
 
   const commentMutation = useMutation({
     mutationFn: createComment,
-    onSuccess: () => {alert("댓글이 등록되었습니다.");},
+    onSuccess: () => {queryClient.refetchQueries({ queryKey: ["write"]});},
     onError: (error) => {alert(error);console.log(error);},
   })
 
