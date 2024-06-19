@@ -49,7 +49,7 @@ export default function WriteDetail() {
     setValue("variables.wr_option", wrOption, { shouldValidate: true });
   }, [isSecretChecked, setValue])
 
-  const mutation = useMutation({
+  const deleteWriteMutation = useMutation({
     mutationFn: deleteWrite,
     onSuccess: () => {alert("삭제 되었습니다."); navigate("/")},
     onError: () => {},
@@ -61,11 +61,11 @@ export default function WriteDetail() {
     onError: (error) => {alert(error);console.log(error);},
   })
 
-  const onSubmit = () => {
-    mutation.mutate({access_token, bo_table, wr_id});
+  const onSubmitDelWrite = () => {
+    deleteWriteMutation.mutate({access_token, bo_table, wr_id});
   }
 
-  const onSubmitComment = ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) => {
+  const onSubmitCreateComment = ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) => {
     commentMutation.mutate({access_token, bo_table, wr_id, variables});
   }
 
@@ -101,7 +101,7 @@ export default function WriteDetail() {
             <Link to={`/writes/${bo_table}/${wr_id}/update`}>
               <Button margin={"3px"}>수정</Button>
             </Link>
-            <Button onClick={onSubmit} margin={"3px"}>삭제</Button>
+            <Button onClick={onSubmitDelWrite} margin={"3px"}>삭제</Button>
           </Box>
         }
       </HStack>
@@ -143,7 +143,7 @@ export default function WriteDetail() {
             </Checkbox>
             <Button
               type="submit"
-              onClick={handleSubmit(onSubmitComment)}
+              onClick={handleSubmit(onSubmitCreateComment)}
               isLoading={commentMutation.isPending}
               colorScheme={"blue"}
               size="md"
