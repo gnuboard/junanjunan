@@ -33,9 +33,11 @@ export default function WriteDetail() {
   }
 
   return (
-    <Box
+    <VStack
       mt={10}
-      px={{ base: 10, lg: 40 }}
+      px={{ base: 20, lg: 60 }}
+      pb={20}
+      alignItems={"flex-start"}
     >
       <Heading fontSize={"x-large"} marginBottom={"10px"}>{ data?.wr_subject }</Heading>
       <HStack justifyContent={"space-between"}>
@@ -111,6 +113,6 @@ export default function WriteDetail() {
           ))}
         </Grid>
       </Container>
-    </Box>
+    </VStack>
   );
 }
