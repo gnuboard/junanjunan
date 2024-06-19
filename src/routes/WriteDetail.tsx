@@ -29,7 +29,7 @@ export default function WriteDetail() {
   });
 
   const onSubmit = () => {
-    mutation.mutate({access_token, wr_id});
+    mutation.mutate({access_token, bo_table, wr_id});
   }
 
   return (

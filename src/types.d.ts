@@ -233,6 +233,7 @@ export interface IUploadFiles {
 
 export interface IRequestWriteDelete {
   access_token: string | null;
+  bo_table: string;
   wr_id: string | undefined;
 }
 

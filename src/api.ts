@@ -148,10 +148,10 @@ export const uploadFiles = async (uploadData: IUploadFiles) =>{
 }
 
 
-export const deleteWrite = async ({access_token, wr_id}: IRequestWriteDelete) =>{
+export const deleteWrite = async ({access_token, bo_table, wr_id}: IRequestWriteDelete) =>{
   const headers = { headers: { Authorization: `Bearer ${access_token}` } };
   return axiosInstance.delete(
-    `/boards/free/writes/${wr_id}`,
+    `/boards/${bo_table}/writes/${wr_id}`,
     headers,
   )
   .then(res => res.data)
