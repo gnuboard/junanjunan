@@ -114,7 +114,9 @@ export default function WriteDetail() {
       <Container mt={16} maxW="container.lg" marginX="none">
         <Heading fontSize={"large"} marginBottom={"50px"}>댓글</Heading>
         {data?.comments.map((comment, index) => (
-          <HStack alignItems={"flex-start"} key={index}>
+          <>
+          <Divider mb={"10px"} />
+          <HStack alignItems={"flex-start"} key={index} mb={"10px"}>
             <Avatar
               name={comment.wr_name}
               src={get_img_url(comment.mb_image_path)}
@@ -129,6 +131,7 @@ export default function WriteDetail() {
               <Text>{comment.save_content}</Text>
             </VStack>
           </HStack>
+          </>
         ))}
         <Divider mt={5} />
         <FormControl mt={5}>
