@@ -144,7 +144,7 @@ export default function WriteDetail() {
             <Button
               type="submit"
               onClick={handleSubmit(onSubmitComment)}
-              isLoading={mutation.isPending}
+              isLoading={commentMutation.isPending}
               colorScheme={"blue"}
               size="md"
             >
