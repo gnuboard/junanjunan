@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Variables in .env have to start with "REACT_APP_" to be used in the app
+.env
