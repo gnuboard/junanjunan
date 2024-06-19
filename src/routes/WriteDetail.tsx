@@ -116,23 +116,23 @@ export default function WriteDetail() {
         <Heading fontSize={"large"} marginBottom={"50px"}>댓글</Heading>
         {data?.comments.map((comment, index) => (
           <VStack alignItems={"flex-start"} pl={comment.wr_comment_reply.length*10}>
-          <Divider mb={"10px"} />
-          <HStack alignItems={"flex-start"} key={index} mb={"10px"}>
-            {comment.wr_comment_reply.length > 0 && <PiArrowBendDownRightDuotone />}
-            <Avatar
-              name={comment.wr_name}
-              src={get_img_url(comment.mb_image_path)}
-              size="md"
-            />
-            <VStack align={"flex-start"}>
-              <HStack>
-                <Avatar name={data?.wr_name} size={"2xs"} src={data ? get_img_url(data.mb_icon_path) : ""} />
-                <Heading fontSize={"md"}>{comment.wr_name}</Heading>
-                <Text>{comment.wr_datetime}</Text>
-              </HStack>
-              <Text>{comment.save_content}</Text>
-            </VStack>
-          </HStack>
+            <Divider mb={"10px"} />
+            <HStack alignItems={"flex-start"} key={index} mb={"10px"}>
+              {comment.wr_comment_reply.length > 0 && <PiArrowBendDownRightDuotone />}
+              <Avatar
+                name={comment.wr_name}
+                src={get_img_url(comment.mb_image_path)}
+                size="md"
+              />
+              <VStack align={"flex-start"}>
+                <HStack>
+                  <Avatar name={data?.wr_name} size={"2xs"} src={data ? get_img_url(data.mb_icon_path) : ""} />
+                  <Heading fontSize={"md"}>{comment.wr_name}</Heading>
+                  <Text>{comment.wr_datetime}</Text>
+                </HStack>
+                <Text>{comment.save_content}</Text>
+              </VStack>
+            </HStack>
           </VStack>
         ))}
         <Divider mt={5} />
