@@ -242,6 +242,7 @@ export interface ICommentCreate {
   wr_content: string;
   wr_name: string;
   wr_password: string | null;
+  wr_secret_checked: boolean;
   wr_option: string;
   comment_id: int;
 }

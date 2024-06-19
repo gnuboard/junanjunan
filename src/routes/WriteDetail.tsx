@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IHtmlContent, IRequestCommentCreate, IRootState } from "../types";
 import {
-  Box, Image, Skeleton, Heading, FormControl, Textarea,
+  Box, Image, Skeleton, Heading, FormControl, Textarea, Checkbox,
   Avatar, HStack, Text, VStack, Container, Button, Divider
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
@@ -24,7 +25,7 @@ export default function WriteDetail() {
   const { isLoading, data } = useQueryGetWrite(bo_table, wr_id);
 
   // 댓글
-  const { register, handleSubmit } = useForm<IRequestCommentCreate>({
+  const { register, handleSubmit, watch, setValue } = useForm<IRequestCommentCreate>({
     defaultValues: {
       access_token: access_token ? access_token : "",
       bo_table: bo_table,
@@ -33,11 +34,19 @@ export default function WriteDetail() {
         wr_name: loginUser.mb_id,
         wr_content: "",
         wr_password: "",
+        wr_secret_checked: false,
         wr_option: "html1",
         comment_id: 0,
       }
     }
   });
+
+  const isSecretChecked = watch("variables.wr_secret_checked");
+
+  useEffect(() => {
+    const wrOption = isSecretChecked ? "secret" : "html1";
+    setValue("variables.wr_option", wrOption, { shouldValidate: true });
+  }, [isSecretChecked, setValue])
 
   const mutation = useMutation({
     mutationFn: deleteWrite,
@@ -124,6 +133,13 @@ export default function WriteDetail() {
         <FormControl mt={5}>
           <Textarea {...register("variables.wr_content", { required: true })} required />
           <HStack justifyContent={"flex-end"} mt={"10px"}>
+            <Checkbox
+              {...register("variables.wr_secret_checked")}
+              mr={"10px"}
+              isChecked={isSecretChecked}
+            >
+              비밀댓글
+            </Checkbox>
             <Button
               type="submit"
               onClick={handleSubmit(onSubmitComment)}
