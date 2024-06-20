@@ -5,13 +5,13 @@ import {
   Box, Image, Skeleton, Heading, FormControl, Textarea, Checkbox,
   Avatar, HStack, Text, VStack, Container, Button, Divider
 } from "@chakra-ui/react";
-import { PiArrowBendDownRightDuotone } from "react-icons/pi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { get_img_url } from "../lib/files";
 import { useGetWritesParams, useQueryGetWrite, useVerifiedToken } from "../lib/useQuery/hooks";
 import { useSelector } from "react-redux";
 import { createComment, deleteWrite } from "../api";
 import { useForm } from "react-hook-form";
+import Comment from "../components/Write/Comment";
 
 
 const HtmlContent = ({ html }: IHtmlContent) =>
@@ -141,40 +141,17 @@ export default function WriteDetail() {
       <Container mt={16} maxW="container.lg" marginX="none">
         <Heading fontSize={"large"} marginBottom={"50px"}>댓글</Heading>
         {data?.comments.map((comment, index) => (
-          <VStack key={index} alignItems={"flex-start"} pl={comment.wr_comment_reply.length*10}>
-            <Divider mb={"10px"} />
-            <HStack alignItems={"flex-start"} key={index} mb={"10px"}>
-              {comment.wr_comment_reply.length > 0 && <PiArrowBendDownRightDuotone />}
-              <Avatar
-                name={comment.wr_name}
-                src={get_img_url(comment.mb_image_path)}
-                size="md"
-              />
-              <VStack align={"flex-start"}>
-                <HStack>
-                  <Avatar name={data?.wr_name} size={"2xs"} src={data ? get_img_url(data.mb_icon_path) : ""} />
-                  <Heading fontSize={"md"}>{comment.wr_name}</Heading>
-                  <Text>{comment.wr_datetime}</Text>
-                </HStack>
-                <HStack>
-                  <Text ref={el => commentRefs.current[index] = el}>{comment.save_content}</Text>
-                  <HStack ref={el => commentInputBoxRefs.current[index] = el}>
-                    <Textarea height={"10px"} defaultValue={comment.save_content}></Textarea>
-                    <Button size="xs">저장</Button>
-                  </HStack>
-                  {comment.mb_id === loginUser.mb_id && (
-                    <Button
-                      size="xs"
-                      onClick={() => toggleUpdateComment(index)}
-                      ref={el => commentUpdateBtnRefs.current[index] = el}
-                    >
-                      수정
-                    </Button>
-                  )}
-                </HStack>
-              </VStack>
-            </HStack>
-          </VStack>
+          <Comment 
+            key={index}
+            index={index}
+            data={data}
+            comment={comment}
+            commentRefs={commentRefs}
+            commentInputBoxRefs={commentInputBoxRefs}
+            commentUpdateBtnRefs={commentUpdateBtnRefs}
+            loginUser={loginUser}
+            toggleUpdateComment={toggleUpdateComment}
+          />
         ))}
         <Divider mt={5} />
         <FormControl mt={5}>
