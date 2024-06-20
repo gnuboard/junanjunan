@@ -27,6 +27,7 @@ export default function WriteDetail() {
   const queryClient = useQueryClient();
   const commentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const commentInputBoxRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const commentUpdateBtnRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
     commentRefs.current.forEach(comment => {
@@ -88,9 +89,11 @@ export default function WriteDetail() {
   const toggleUpdateComment = (index: number) => {
     const comment = commentRefs.current[index];
     const commentInputBox = commentInputBoxRefs.current[index];
-    if (!comment || !commentInputBox) return;
+    const commentUpdateBtn = commentUpdateBtnRefs.current[index];
+    if (!comment || !commentInputBox || !commentUpdateBtn) return;
     comment.hidden = !comment.hidden;
     commentInputBox.style.display = commentInputBox.style.display === "none" ? "flex": "none";
+    commentUpdateBtn.innerHTML = commentUpdateBtn.innerHTML === "수정" ? "취소" : "수정";
   }
 
   return (
@@ -160,7 +163,13 @@ export default function WriteDetail() {
                     <Button size="xs">저장</Button>
                   </HStack>
                   {comment.mb_id === loginUser.mb_id && (
-                    <Button size="xs" onClick={() => toggleUpdateComment(index)}>수정</Button>
+                    <Button
+                      size="xs"
+                      onClick={() => toggleUpdateComment(index)}
+                      ref={el => commentUpdateBtnRefs.current[index] = el}
+                    >
+                      수정
+                    </Button>
                   )}
                 </HStack>
               </VStack>
