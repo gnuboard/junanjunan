@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IHtmlContent, IRequestCommentCreate, IRootState } from "../types";
 import {
@@ -25,6 +25,21 @@ export default function WriteDetail() {
   const { bo_table, wr_id } = useGetWritesParams();
   const { isLoading, data } = useQueryGetWrite(bo_table, wr_id);
   const queryClient = useQueryClient();
+  const commentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const commentInputBoxRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    commentRefs.current.forEach(comment => {
+      if (comment) {
+        comment.hidden = false;
+      }
+    })
+    commentInputBoxRefs.current.forEach(box => {
+      if (box) {
+        box.style.display = "none";
+      }
+    })
+}, [data]);
 
   // 댓글
   const { register, handleSubmit, watch, setValue } = useForm<IRequestCommentCreate>({
@@ -68,6 +83,14 @@ export default function WriteDetail() {
 
   const onSubmitCreateComment = ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) => {
     commentMutation.mutate({access_token, bo_table, wr_id, variables});
+  }
+
+  const toggleUpdateComment = (index: number) => {
+    const comment = commentRefs.current[index];
+    const commentInputBox = commentInputBoxRefs.current[index];
+    if (!comment || !commentInputBox) return;
+    comment.hidden = !comment.hidden;
+    commentInputBox.style.display = commentInputBox.style.display === "none" ? "flex": "none";
   }
 
   return (
@@ -115,7 +138,7 @@ export default function WriteDetail() {
       <Container mt={16} maxW="container.lg" marginX="none">
         <Heading fontSize={"large"} marginBottom={"50px"}>댓글</Heading>
         {data?.comments.map((comment, index) => (
-          <VStack alignItems={"flex-start"} pl={comment.wr_comment_reply.length*10}>
+          <VStack key={index} alignItems={"flex-start"} pl={comment.wr_comment_reply.length*10}>
             <Divider mb={"10px"} />
             <HStack alignItems={"flex-start"} key={index} mb={"10px"}>
               {comment.wr_comment_reply.length > 0 && <PiArrowBendDownRightDuotone />}
@@ -130,7 +153,16 @@ export default function WriteDetail() {
                   <Heading fontSize={"md"}>{comment.wr_name}</Heading>
                   <Text>{comment.wr_datetime}</Text>
                 </HStack>
-                <Text>{comment.save_content}</Text>
+                <HStack>
+                  <Text ref={el => commentRefs.current[index] = el}>{comment.save_content}</Text>
+                  <HStack ref={el => commentInputBoxRefs.current[index] = el}>
+                    <Textarea height={"10px"} defaultValue={comment.save_content}></Textarea>
+                    <Button size="xs">저장</Button>
+                  </HStack>
+                  {comment.mb_id === loginUser.mb_id && (
+                    <Button size="xs" onClick={() => toggleUpdateComment(index)}>수정</Button>
+                  )}
+                </HStack>
               </VStack>
             </HStack>
           </VStack>
