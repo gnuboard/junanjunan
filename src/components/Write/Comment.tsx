@@ -3,8 +3,12 @@ import {
   Text, VStack, Button, Divider
 } from "@chakra-ui/react";
 import { PiArrowBendDownRightDuotone } from "react-icons/pi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 import { get_img_url } from "../../lib/files";
-import { ILoginUserData, IWrite } from "../../types";
+import { ILoginUserData, IRequestCommentUpdate, IWrite } from "../../types";
+import { useGetWritesParams, useVerifiedToken } from "../../lib/useQuery/hooks";
+import { updateComment } from "../../api";
 
 
 export default function Comment(
@@ -20,6 +24,41 @@ export default function Comment(
     toggleUpdateComment: any
   }
 ) {
+  const access_token = useVerifiedToken().accessToken;
+  const queryClient = useQueryClient();
+  const { bo_table, wr_id } = useGetWritesParams();
+  const { register, handleSubmit } = useForm<IRequestCommentUpdate>({
+    defaultValues: {
+      access_token: access_token ? access_token : "",
+      bo_table: bo_table,
+      wr_id: wr_id,
+      variables: {
+        wr_name: comment.wr_name,
+        wr_content: comment.save_content,
+        wr_password: comment.wr_password,
+        wr_secret_checked: false,
+        wr_option: comment.wr_option,
+        comment_id: comment.wr_id,
+      }
+    }
+  });
+
+  const commentUpdateMutation = useMutation({
+    mutationFn: updateComment,
+    onSuccess: () => {
+      const commentUpdateBtn = commentUpdateBtnRefs.current[index];
+      if(!commentUpdateBtn) return;
+      commentUpdateBtn.innerHTML = "수정";
+      queryClient.refetchQueries({ queryKey: ["write"]});
+      
+    },
+    onError: (error) => {alert(error);console.log(error);},
+  })
+
+  const onSubmitUpdateComment = ({access_token, bo_table, wr_id, variables}: IRequestCommentUpdate) => {
+    commentUpdateMutation.mutate({access_token, bo_table, wr_id, variables});
+  }
+
   return (
     <VStack key={index} alignItems={"flex-start"} pl={comment.wr_comment_reply.length*10}>
       <Divider mb={"10px"} />
@@ -39,13 +78,13 @@ export default function Comment(
           <HStack>
             <Text ref={el => commentRefs.current[index] = el}>{comment.save_content}</Text>
             <HStack ref={el => commentInputBoxRefs.current[index] = el}>
-              <Textarea height={"10px"} defaultValue={comment.save_content}></Textarea>
-              <Button size="xs">저장</Button>
+              <Textarea height={"10px"} {...register("variables.wr_content")}></Textarea>
+              <Button size="xs" onClick={handleSubmit(onSubmitUpdateComment)} isLoading={commentUpdateMutation.isPending}>저장</Button>
             </HStack>
             {comment.mb_id === loginUser.mb_id && (
               <Button
                 size="xs"
-                onClick={() => toggleUpdateComment(index)}
+                onClick={() => toggleUpdateComment(index, comment.wr_content)}
                 ref={el => commentUpdateBtnRefs.current[index] = el}
               >
                 수정

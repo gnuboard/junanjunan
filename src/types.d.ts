@@ -248,6 +248,16 @@ export interface ICommentCreate {
 }
 
 
+export interface ICommentUpdate {
+  wr_content: string;
+  wr_name: string;
+  wr_password: string | null;
+  wr_secret_checked: boolean;
+  wr_option: string;
+  comment_id: int;
+}
+
+
 export interface IRequestCommentCreate {
   access_token: string | null;
   bo_table: string;
@@ -255,6 +265,12 @@ export interface IRequestCommentCreate {
   variables: ICommentCreate;
 }
 
+export interface IRequestCommentUpdate {
+  access_token: string | null;
+  bo_table: string;
+  wr_id: string;
+  variables: ICommentCreate;
+}
 
 export interface IStep {
   id: number;

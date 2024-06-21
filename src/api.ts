@@ -172,3 +172,17 @@ export const createComment = async ({access_token, bo_table, wr_id, variables}: 
     throw error;
   });
 }
+
+
+export const updateComment = async ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) =>{
+  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+  return axiosInstance.put(
+    `/boards/${bo_table}/writes/${wr_id}/comments`,
+    variables,
+    headers,
+  )
+  .then(res => res.data)
+  .catch(error => {
+    throw error;
+  });
+}
