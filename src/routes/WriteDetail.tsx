@@ -1,17 +1,18 @@
 import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IHtmlContent, IRequestCommentCreate, IRootState } from "../types";
+import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Box, Image, Skeleton, Heading, FormControl, Textarea, Checkbox,
   Avatar, HStack, Text, VStack, Container, Button, Divider
 } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { get_img_url } from "../lib/files";
 import { useGetWritesParams, useQueryGetWrite, useVerifiedToken } from "../lib/useQuery/hooks";
-import { useSelector } from "react-redux";
 import { createComment, deleteWrite } from "../api";
-import { useForm } from "react-hook-form";
+import { IHtmlContent, IRequestCommentCreate, IRootState } from "../types";
 import Comment from "../components/Write/Comment";
+
 
 
 const HtmlContent = ({ html }: IHtmlContent) =>
@@ -31,16 +32,16 @@ export default function WriteDetail() {
 
   useEffect(() => {
     commentRefs.current.forEach(comment => {
-      if (comment) {
-        comment.hidden = false;
-      }
-    })
+        if (comment) {
+          comment.hidden = false;
+        }
+      });
     commentInputBoxRefs.current.forEach(box => {
       if (box) {
         box.style.display = "none";
       }
-    })
-}, [data]);
+    });
+  }, [data]);
 
   // 댓글
   const { register, handleSubmit, watch, setValue } = useForm<IRequestCommentCreate>({

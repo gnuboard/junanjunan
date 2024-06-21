@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { IFiles, IRequestWriteCreate } from "../types";
 import { createWrite, uploadFiles } from "../api";
 import WriteForm from "../components/Write/WriteForm";
 import { useGetBoTableParams, useVerifiedToken } from "../lib/useQuery/hooks";
-import { useState } from "react";
 
 
 export default function WirteCreate() {

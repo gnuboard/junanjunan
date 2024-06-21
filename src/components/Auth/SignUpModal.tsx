@@ -4,14 +4,15 @@ import {
   ModalContent, ModalHeader, ModalOverlay,
 } from "@chakra-ui/react";
 import { motion, AnimatePresence } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import SocialLogin from "./SocialLogin";
 import { ISignUpForm, ISignUpModalProps, IStep } from "../../types";
 import Agreement from './SignUp/Agreement';
 import InputForm from './SignUp/InputForm';
-import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+
 import { signUp } from '../../api';
-import { AxiosError } from 'axios';
 
 
 export default function SignUpModal({ isOpen, onClose }: ISignUpModalProps) {

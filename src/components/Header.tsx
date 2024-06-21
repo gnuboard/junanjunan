@@ -4,13 +4,14 @@ import {
   useColorMode, useColorModeValue, Stack, Avatar
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import LoginModal from "./Auth/LoginModal";
 import SignUpModal from "./Auth/SignUpModal";
 import { get_img_url } from "../lib/files";
-import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../types";
 import { logout as tokenLogout } from "../store/auth/tokenSlice";
 import { logout as userLogout } from "../store/auth/loginUserSlice";
+
 
 export default function Header() {
   const dispatch = useDispatch();

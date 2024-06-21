@@ -6,12 +6,12 @@ import {
 import { useDispatch } from "react-redux";
 import { FaUserNinja, FaLock } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 import SocialLogin from "./SocialLogin";
 import { ILoginModalProps, ILoginForm } from "../../types";
 import { usernameLogIn, getMe } from "../../api";
 import { setCredentials } from "../../store/auth/tokenSlice";
 import { setLoginUser } from "../../store/auth/loginUserSlice";
-import { useForm } from "react-hook-form";
 
 
 export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {

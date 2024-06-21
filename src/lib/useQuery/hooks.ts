@@ -1,12 +1,12 @@
+import { useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
 import { IRootState, IWrite } from "../../types";
 import { getWrite, refreshAccessToken } from "../../api";
 import { getWriteRetryCallback } from "./callbacks";
-import { useDispatch, useSelector } from "react-redux";
 import { logout as tokenLogout, setCredentials } from "../../store/auth/tokenSlice";
 import { logout as userLogout } from "../../store/auth/loginUserSlice";
-import { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
 
 
 export function useVerifiedToken() {

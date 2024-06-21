@@ -1,6 +1,6 @@
-import { FaRegHeart, FaStar } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 import {
-  Box, Button, Grid, HStack,
+  Box, Button, Grid,
   Image, Text, VStack, useColorModeValue
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";

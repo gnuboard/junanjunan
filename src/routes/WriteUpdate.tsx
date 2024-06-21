@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Text } from "@chakra-ui/react";
-import { useGetWritesParams, useQueryGetWrite } from "../lib/useQuery/hooks";
 import { useMutation } from "@tanstack/react-query";
+import { useGetWritesParams, useQueryGetWrite } from "../lib/useQuery/hooks";
 import { IRequestWriteUpdate } from "../types";
 import { updateWrite } from "../api";
 import WriteForm from "../components/Write/WriteForm";
-import { useState } from "react";
 
 
 export default function WriteUpdate() {

@@ -1,13 +1,13 @@
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import React from 'react';
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import router from './router';
 import theme from './theme';
 import { store, persistor } from './store/store';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 
 const client = new QueryClient();
