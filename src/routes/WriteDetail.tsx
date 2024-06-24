@@ -8,7 +8,7 @@ import {
   Avatar, HStack, Text, VStack, Container, Button, Divider
 } from "@chakra-ui/react";
 import { get_img_url } from "../lib/files";
-import { useGetWritesParams, useQueryGetWrite, useVerifiedToken } from "../lib/useQuery/hooks";
+import { useGetWritesParams, useQueryGetWrite, getVerifiedToken } from "../lib/useQuery/hooks";
 import { createComment, deleteWrite } from "../api";
 import { IHtmlContent, IRequestCommentCreate, IRootState } from "../types";
 import Comment from "../components/Write/Comment";
@@ -21,7 +21,7 @@ const HtmlContent = ({ html }: IHtmlContent) =>
 
 export default function WriteDetail() {
   const loginUser  = useSelector((state: IRootState) => state.loginUser);
-  const access_token = useVerifiedToken().accessToken;
+  const access_token = getVerifiedToken().accessToken;
   const navigate = useNavigate();
   const { bo_table, wr_id } = useGetWritesParams();
   const { isLoading, data } = useQueryGetWrite(bo_table, wr_id);

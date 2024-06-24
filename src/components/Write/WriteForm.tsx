@@ -4,13 +4,13 @@ import {
   InputLeftAddon, Text, Textarea, VStack, Button
 } from "@chakra-ui/react";
 import { IFiles, IRequestWriteForm, IWriteFormVariables } from "../../types";
-import { useVerifiedToken } from "../../lib/useQuery/hooks";
+import { getVerifiedToken } from "../../lib/useQuery/hooks";
 import FileUpload from "../../lib/files";
 import { useRequireLogin } from "../../lib/hooks";
 
 
 export default function WriteForm({setDataContainer, mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {
-  const access_token = useVerifiedToken().accessToken;
+  const access_token = getVerifiedToken().accessToken;
   useRequireLogin(access_token);
   const fileFormMethods = useForm<IFiles>();
   const onClick = () => {

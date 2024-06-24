@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { get_img_url } from "../../lib/files";
 import { ILoginUserData, IRequestCommentUpdate, IWrite } from "../../types";
-import { useGetWritesParams, useVerifiedToken } from "../../lib/useQuery/hooks";
+import { getVerifiedToken, useGetWritesParams } from "../../lib/useQuery/hooks";
 import { updateComment } from "../../api";
 
 
@@ -24,7 +24,7 @@ export default function Comment(
     toggleUpdateComment: any
   }
 ) {
-  const access_token = useVerifiedToken().accessToken;
+  const access_token = getVerifiedToken().accessToken;
   const queryClient = useQueryClient();
   const { bo_table, wr_id } = useGetWritesParams();
   const { register, handleSubmit } = useForm<IRequestCommentUpdate>({

@@ -4,11 +4,11 @@ import { useMutation } from "@tanstack/react-query";
 import { IFiles, IRequestWriteCreate } from "../types";
 import { createWrite, uploadFiles } from "../api";
 import WriteForm from "../components/Write/WriteForm";
-import { useGetBoTableParams, useVerifiedToken } from "../lib/useQuery/hooks";
+import { useGetBoTableParams, getVerifiedToken } from "../lib/useQuery/hooks";
 
 
 export default function WirteCreate() {
-  const { accessToken } = useVerifiedToken();
+  const { accessToken } = getVerifiedToken();
   const [dataContainer, setDataContainer] = useState<IFiles>({file1: null, file2: null});
   const navigate = useNavigate();
   const bo_table = useGetBoTableParams();
