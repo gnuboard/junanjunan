@@ -12,6 +12,7 @@ import { ILoginModalProps, ILoginForm } from "../../types";
 import { usernameLogIn, getMe } from "../../api";
 import { setCredentials } from "../../store/auth/tokenSlice";
 import { setLoginUser } from "../../store/auth/loginUserSlice";
+import { axiosInstance } from "../../api";
 
 
 export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
@@ -27,6 +28,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
       console.log("mutation is successful");
       const access_token = data.access_token;
       dispatch(setCredentials(data));
+      axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
       getMe({ queryKey: ["me"] }).then(res => {
         const userInfo = res;
         dispatch(setLoginUser(userInfo));
