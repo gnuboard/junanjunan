@@ -150,7 +150,7 @@ export interface IRootState {
 
 
 export interface IGetMe {
-  queryKey: [string, string | null];
+  queryKey: [string];
 }
 
 
@@ -185,14 +185,12 @@ interface IWriteForm {
 
 
 export interface IRequestWriteCreate {
-  access_token: string;
   bo_table: string;
   variables: IWriteForm;
 }
 
 
 export interface IRequestWriteUpdate {
-  access_token: string;
   bo_table;
   wr_id: string;
   variables: IWriteForm;
@@ -200,7 +198,6 @@ export interface IRequestWriteUpdate {
 
 
 export interface IRequestWriteForm {
-  access_token: string;
   variables: IWriteForm;
   bo_table: string;
   wr_id: string | null;
@@ -224,7 +221,6 @@ export interface IFiles {
 
 
 export interface IUploadFiles {
-  access_token: string | null;
   bo_table: string;
   wr_id: string;
   files: IFiles;
@@ -232,7 +228,6 @@ export interface IUploadFiles {
 
 
 export interface IRequestWriteDelete {
-  access_token: string | null;
   bo_table: string;
   wr_id: string | undefined;
 }
@@ -259,14 +254,12 @@ export interface ICommentUpdate {
 
 
 export interface IRequestCommentCreate {
-  access_token: string | null;
   bo_table: string;
   wr_id: string;
   variables: ICommentCreate;
 }
 
 export interface IRequestCommentUpdate {
-  access_token: string | null;
   bo_table: string;
   wr_id: string;
   variables: ICommentCreate;

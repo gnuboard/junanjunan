@@ -26,12 +26,9 @@ export const getBoardWrites = async ({ queryKey }: QueryFunctionContext) =>{
 
 
 export const getWrite = async ({ queryKey }: QueryFunctionContext) =>{
-  const [_, bo_table, wr_id, access_token] = queryKey;
+  const [_, bo_table, wr_id] = queryKey;
   const url = `/boards/${bo_table}/writes/${wr_id}`;
   let headers = {};
-  if (access_token) {
-    headers = { headers: { Authorization: `Bearer ${access_token}` } };
-  }
   return axiosInstance.get(url, headers)
   .then(res => res.data)
   .catch(error => {throw error;});
@@ -40,9 +37,7 @@ export const getWrite = async ({ queryKey }: QueryFunctionContext) =>{
 
 export const getMe = async ({ queryKey }: IGetMe) => {
   const url = "/members/me";
-  const [, access_token] = queryKey;
-  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
-  return axiosInstance.get(url, headers).then(res => res.data);
+  return axiosInstance.get(url).then(res => res.data);
 }
 
 
@@ -93,12 +88,10 @@ export const refreshAccessToken = async (refreshToken: string) =>{
 }
 
 
-export const createWrite = async ({access_token, bo_table, variables}: IRequestWriteCreate) =>{
-  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+export const createWrite = async ({bo_table, variables}: IRequestWriteCreate) =>{
   return axiosInstance.post(
     `/boards/${bo_table}/writes`,
     variables,
-    headers,
   )
   .then(res => res.data)
   .catch(error => {
@@ -107,12 +100,10 @@ export const createWrite = async ({access_token, bo_table, variables}: IRequestW
 }
 
 
-export const updateWrite = async ({access_token, bo_table, wr_id, variables}: IRequestWriteUpdate) =>{
-  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+export const updateWrite = async ({bo_table, wr_id, variables}: IRequestWriteUpdate) =>{
   return axiosInstance.put(
     `/boards/${bo_table}/writes/${wr_id}`,
     variables,
-    headers,
   )
   .then(res => res.data)
   .catch(error => {
@@ -122,12 +113,11 @@ export const updateWrite = async ({access_token, bo_table, wr_id, variables}: IR
 
 
 export const uploadFiles = async (uploadData: IUploadFiles) =>{
-  const { access_token, bo_table, wr_id, files } = uploadData;
+  const { bo_table, wr_id, files } = uploadData;
   const formData = new FormData();
   const headers = {
     headers: {
       "Content-Type": "multipart/form-data",
-      "Authorization": `Bearer ${access_token}`
     }
   }
 
@@ -147,11 +137,9 @@ export const uploadFiles = async (uploadData: IUploadFiles) =>{
 }
 
 
-export const deleteWrite = async ({access_token, bo_table, wr_id}: IRequestWriteDelete) =>{
-  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+export const deleteWrite = async ({bo_table, wr_id}: IRequestWriteDelete) =>{
   return axiosInstance.delete(
     `/boards/${bo_table}/writes/${wr_id}`,
-    headers,
   )
   .then(res => res.data)
   .catch(error => {
@@ -160,12 +148,10 @@ export const deleteWrite = async ({access_token, bo_table, wr_id}: IRequestWrite
 }
 
 
-export const createComment = async ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) =>{
-  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+export const createComment = async ({bo_table, wr_id, variables}: IRequestCommentCreate) =>{
   return axiosInstance.post(
     `/boards/${bo_table}/writes/${wr_id}/comments`,
     variables,
-    headers,
   )
   .then(res => res.data)
   .catch(error => {
@@ -174,12 +160,10 @@ export const createComment = async ({access_token, bo_table, wr_id, variables}: 
 }
 
 
-export const updateComment = async ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) =>{
-  const headers = { headers: { Authorization: `Bearer ${access_token}` } };
+export const updateComment = async ({bo_table, wr_id, variables}: IRequestCommentCreate) =>{
   return axiosInstance.put(
     `/boards/${bo_table}/writes/${wr_id}/comments`,
     variables,
-    headers,
   )
   .then(res => res.data)
   .catch(error => {

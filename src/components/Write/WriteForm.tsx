@@ -4,21 +4,16 @@ import {
   InputLeftAddon, Text, Textarea, VStack, Button
 } from "@chakra-ui/react";
 import { IFiles, IRequestWriteForm, IWriteFormVariables } from "../../types";
-import { getVerifiedToken } from "../../lib/useQuery/hooks";
 import FileUpload from "../../lib/files";
-import { useRequireLogin } from "../../lib/hooks";
 
 
 export default function WriteForm({setDataContainer, mutation, onSubmit, bo_table, wr_id, writeData}: IWriteFormVariables) {
-  const access_token = getVerifiedToken().accessToken;
-  useRequireLogin(access_token);
   const fileFormMethods = useForm<IFiles>();
   const onClick = () => {
     setDataContainer(fileFormMethods.watch());
   };
   const { register, handleSubmit } = useForm<IRequestWriteForm>({
     defaultValues: {
-      access_token: access_token ? access_token : "",
       bo_table: bo_table,
       wr_id: wr_id,
       variables: {
@@ -33,7 +28,6 @@ export default function WriteForm({setDataContainer, mutation, onSubmit, bo_tabl
   return (
     <Container mt={10} px={{ base: 10, lg: 40 }}>
       <VStack as="form" onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register("access_token")} required type="text" hidden/>
         <Input {...register("bo_table")} required type="text" hidden/>
         <Input {...register("wr_id")} type="text" hidden/>
         <FormControl>

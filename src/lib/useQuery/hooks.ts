@@ -74,9 +74,8 @@ export function useGetWritesParams() {
 
 
 export function useQueryGetWrite(bo_table: string, wr_id: string) {
-  const {accessToken, refreshToken} = getVerifiedToken();
   const { isLoading, data, refetch } = useQuery<IWrite>({
-    queryKey: ["write", bo_table, wr_id, accessToken, refreshToken],
+    queryKey: ["write", bo_table, wr_id],
     queryFn: getWrite,
     retry: (failureCount, error) => getWriteRetryCallback(failureCount, error),
   });

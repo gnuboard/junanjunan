@@ -27,7 +27,7 @@ export default function LoginModal ( {onClose, isOpen}: ILoginModalProps ) {
       console.log("mutation is successful");
       const access_token = data.access_token;
       dispatch(setCredentials(data));
-      getMe({ queryKey: ["me", access_token] }).then(res => {
+      getMe({ queryKey: ["me"] }).then(res => {
         const userInfo = res;
         dispatch(setLoginUser(userInfo));
       });

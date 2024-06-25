@@ -8,7 +8,7 @@ import {
   Avatar, HStack, Text, VStack, Container, Button, Divider
 } from "@chakra-ui/react";
 import { get_img_url } from "../lib/files";
-import { useGetWritesParams, useQueryGetWrite, getVerifiedToken } from "../lib/useQuery/hooks";
+import { useGetWritesParams, useQueryGetWrite } from "../lib/useQuery/hooks";
 import { createComment, deleteWrite } from "../api";
 import { IHtmlContent, IRequestCommentCreate, IRootState } from "../types";
 import Comment from "../components/Write/Comment";
@@ -21,7 +21,6 @@ const HtmlContent = ({ html }: IHtmlContent) =>
 
 export default function WriteDetail() {
   const loginUser  = useSelector((state: IRootState) => state.loginUser);
-  const access_token = getVerifiedToken().accessToken;
   const navigate = useNavigate();
   const { bo_table, wr_id } = useGetWritesParams();
   const { isLoading, data } = useQueryGetWrite(bo_table, wr_id);
@@ -46,7 +45,6 @@ export default function WriteDetail() {
   // 댓글
   const { register, handleSubmit, watch, setValue } = useForm<IRequestCommentCreate>({
     defaultValues: {
-      access_token: access_token ? access_token : "",
       bo_table: bo_table,
       wr_id: wr_id,
       variables: {
@@ -80,11 +78,11 @@ export default function WriteDetail() {
   })
 
   const onSubmitDelWrite = () => {
-    deleteWriteMutation.mutate({access_token, bo_table, wr_id});
+    deleteWriteMutation.mutate({bo_table, wr_id});
   }
 
-  const onSubmitCreateComment = ({access_token, bo_table, wr_id, variables}: IRequestCommentCreate) => {
-    commentMutation.mutate({access_token, bo_table, wr_id, variables});
+  const onSubmitCreateComment = ({bo_table, wr_id, variables}: IRequestCommentCreate) => {
+    commentMutation.mutate({bo_table, wr_id, variables});
   }
 
   const toggleUpdateComment = (index: number) => {

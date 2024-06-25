@@ -28,8 +28,8 @@ export default function WriteUpdate() {
     return <Text>Loading...</Text>;
   }
 
-  const onSubmit = ({access_token, bo_table, wr_id, variables}: IRequestWriteUpdate) => {
-    mutation.mutate({access_token, bo_table, wr_id, variables});
+  const onSubmit = ({bo_table, wr_id, variables}: IRequestWriteUpdate) => {
+    mutation.mutate({bo_table, wr_id, variables});
   }
 
   return <WriteForm setDataContainer={setDataContainer} mutation={mutation} onSubmit={onSubmit} bo_table={bo_table} wr_id={wr_id} writeData={data}/>

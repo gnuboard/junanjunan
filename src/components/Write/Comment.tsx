@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { get_img_url } from "../../lib/files";
 import { ILoginUserData, IRequestCommentUpdate, IWrite } from "../../types";
-import { getVerifiedToken, useGetWritesParams } from "../../lib/useQuery/hooks";
+import { useGetWritesParams } from "../../lib/useQuery/hooks";
 import { updateComment } from "../../api";
 
 
@@ -24,12 +24,10 @@ export default function Comment(
     toggleUpdateComment: any
   }
 ) {
-  const access_token = getVerifiedToken().accessToken;
   const queryClient = useQueryClient();
   const { bo_table, wr_id } = useGetWritesParams();
   const { register, handleSubmit } = useForm<IRequestCommentUpdate>({
     defaultValues: {
-      access_token: access_token ? access_token : "",
       bo_table: bo_table,
       wr_id: wr_id,
       variables: {
@@ -55,8 +53,8 @@ export default function Comment(
     onError: (error) => {alert(error);console.log(error);},
   })
 
-  const onSubmitUpdateComment = ({access_token, bo_table, wr_id, variables}: IRequestCommentUpdate) => {
-    commentUpdateMutation.mutate({access_token, bo_table, wr_id, variables});
+  const onSubmitUpdateComment = ({bo_table, wr_id, variables}: IRequestCommentUpdate) => {
+    commentUpdateMutation.mutate({bo_table, wr_id, variables});
   }
 
   return (
