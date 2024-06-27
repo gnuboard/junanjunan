@@ -26,6 +26,7 @@ axiosInstance.interceptors.request.use(
     }
 
     if (!config.headers["Authorization"]) {
+      axiosInstance.defaults.headers.common["Authorization"] = 'Bearer ' + accessToken;
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
 
