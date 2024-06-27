@@ -1,5 +1,6 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
+import { getNavigation } from "./lib/useNavigationSetup";
 import {
   IUsernmaeLoginVariables, IGetMe, IRequestWriteUpdate, IRequestWriteCreate,
   IRequestWriteDelete, ISignUpForm, IUploadFiles, IRequestCommentCreate
@@ -14,6 +15,17 @@ export const serverURL = process.env.REACT_APP_SERVER_URL;
 export const axiosInstance = axios.create({
   baseURL: `${serverURL}/api/v1`
 })
+
+
+async function handleLogoutAndRedirect(): Promise<void> {
+  store.dispatch(tokenLogout());
+  store.dispatch(userLogout());
+  delete axiosInstance.defaults.headers.common["Authorization"];
+  alert("로그인이 필요합니다.");
+  const navigate = await getNavigation();
+  navigate('/');
+}
+
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -46,8 +58,7 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401) {
       const refreshToken = store.getState().token.refresh_token;
       if (!refreshToken) {
-        store.dispatch(tokenLogout());
-        store.dispatch(userLogout());
+        await handleLogoutAndRedirect();
         return Promise.reject(error);
       }
 
@@ -59,10 +70,7 @@ axiosInstance.interceptors.response.use(
         store.dispatch(setCredentials(response));  
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        alert("로그인이 필요합니다.");
-        store.dispatch(tokenLogout());
-        store.dispatch(userLogout());
-        window.location.href = "/";
+        await handleLogoutAndRedirect();
         return Promise.reject(refreshError);
       }
     }
