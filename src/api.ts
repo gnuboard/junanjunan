@@ -71,7 +71,6 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         await handleLogoutAndRedirect();
-        return Promise.reject(refreshError);
       }
     }
     return Promise.reject(error);
